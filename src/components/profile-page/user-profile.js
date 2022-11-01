@@ -1,6 +1,7 @@
-import { Button, Box, Typography } from '@mui/material';
+import { Button, Box, TextField, Typography } from '@mui/material';
 import MiniProfile from './mini-profile';
 import pfp from './i.png';
+import AddIcon from '@mui/icons-material/Add';
 
 function ProfilePage(){
 
@@ -64,14 +65,14 @@ function ProfilePage(){
                                 
                                 <Typography
                                 sx={{
-                                    fontSize: '14pt'
+                                    fontSize: '14pt',
                                 }}>
                                     Charles Leclerc
                                 </Typography>
 
                                 <Typography
                                 sx={{
-                                    fontSize: '14pt'
+                                    fontSize: '14pt',
                                 }}>
                                     cleclerc@gmail.com
                                 </Typography>
@@ -85,7 +86,7 @@ function ProfilePage(){
                                 textAlign: 'center'
                             }}>
                                 <Typography>
-                                    Charles Marc Hervé Perceval Leclerc is a Monégasque racing driver, 
+                                    Charles Perceval Leclerc is a Monégasque racing driver, 
                                     currently racing in Formula One for Scuderia Ferrari. 
                                     He won the GP3 Series championship in 2016 and the FIA Formula 2 
                                     Championship in 2017.
@@ -122,12 +123,12 @@ function ProfilePage(){
                 alignItems: 'center',
                 justifyContent: 'center',
                 rowGap: '5%',
-                mt: '-80px',
+                mt: '-70px',
                 ml: '-80px'
             }}>
                 <Box 
                 sx={{
-                    mb: '-40px'
+                    mb: '-35px'
                 }}>
                     Friends
                 </Box>
@@ -163,16 +164,29 @@ function ProfilePage(){
 
                 <Box 
                 sx={{
-                    height: '25vh',
+                    height: '15vh',
                     borderRadius: '25px',
                     width: '65%',
                     display: 'flex',
-                    flexDirection: 'row',
+                    flexDirection: 'column',
+                    columnGap: '50px',
                     justifyContent: 'center',
+                    alignItems: 'center',
                     backgroundColor: '#F5F5F5'
                 }}>
-                    Find Friends
+                <Typography> Find a Friend</Typography>
+                    <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row'
+                    }}>
+                        
+                        <TextField variant="standard" label="Friend's Email" />
+                        <AddIcon sx={{mt: '15px'}}/>
+                    </Box>
                 </Box>
+
+                
             </Box>
 
         </Box>

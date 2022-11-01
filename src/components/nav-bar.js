@@ -17,7 +17,13 @@ function NavBar(){
                 alignItems: 'center'
             }}>
                 <Box>
-                    <Typography> WTD </Typography>
+                    <Typography 
+                    sx={{
+                        color: 'darkblue',
+                        fontSize: '18pt'
+                    }}> 
+                        WTD 
+                    </Typography>
                 </Box>
 
                 <Box> 
@@ -28,7 +34,8 @@ function NavBar(){
                 sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    columnGap: '20px'
+                    columnGap: '20px',
+                    color: 'darkblue'
                 }}>
                     <Typography> Home </Typography>
                     <Typography> Progress </Typography>
