@@ -1,4 +1,5 @@
 import { Button, Box, Typography } from '@mui/material';
+import MiniProfile from './mini-profile';
 import pfp from './i.png';
 
 function ProfilePage(){
@@ -10,7 +11,6 @@ function ProfilePage(){
     return(
         <Box 
         sx={{
-            border: '1px solid blue',
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center'
@@ -114,21 +114,62 @@ function ProfilePage(){
 
             <Box
             sx={{
+                width: '60%',
+                height: '89vh',
                 display: 'flex',
                 flexDirection: 'column',
-                width: '35%'
+                alignContent: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+                rowGap: '5%',
+                mt: '-80px',
+                ml: '-80px'
             }}>
-            
                 <Box 
                 sx={{
-                    border: '1px solid green'
+                    mb: '-40px'
                 }}>
                     Friends
+                </Box>
+                <Box 
+                sx={{
+                    height: '30vh',
+                    borderRadius: '25px',
+                    width: '65%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    backgroundColor: '#F5F5F5'
+                }}>
+
+                    <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        ml: '20px',
+                        flexWrap: 'wrap',
+                        overflow: 'hidden',
+                        columnGap: '30px',
+                        alignItems: 'center'
+                    }}>
+                        <MiniProfile />
+                        <MiniProfile />
+                        <MiniProfile />
+                        <MiniProfile />
+                    </Box>
+
+
                 </Box>
 
                 <Box 
                 sx={{
-                    border: '1px solid black'
+                    height: '25vh',
+                    borderRadius: '25px',
+                    width: '65%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    backgroundColor: '#F5F5F5'
                 }}>
                     Find Friends
                 </Box>

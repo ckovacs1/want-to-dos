@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import NavBar from "./components/nav-bar";
+import MiniProfile from "./components/profile-page/mini-profile";
 import ProfilePage from "./components/profile-page/user-profile";
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
       <NavBar />
 
       <ProfilePage />
+
+     
     </Box>
   );
 }
