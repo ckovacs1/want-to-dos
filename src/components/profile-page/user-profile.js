@@ -147,7 +147,7 @@ function ProfilePage(){
                     sx={{
                         display: 'flex',
                         flexDirection: 'row',
-                        ml: '20px',
+                        justifyContent: 'center',
                         flexWrap: 'wrap',
                         overflow: 'hidden',
                         columnGap: '30px',
