@@ -18,10 +18,11 @@
     "nodemon": "^2.0.20",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
-"scripts": {
+  "scripts": {
     "start": "node --max_old_space_size=2560 node_modules/.bin/react-scripts start",
     "build": "node --max_old_space_size=2560 node_modules/.bin/react-scripts build",
     "test": "react-scripts test",
