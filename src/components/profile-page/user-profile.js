@@ -155,6 +155,9 @@ function ProfilePage(){
                     }}>
                         <MiniProfile />
                         <MiniProfile />
+                      
+                        <MiniProfile />
+                        <MiniProfile />
                         <MiniProfile />
                         <MiniProfile />
                     </Box>
