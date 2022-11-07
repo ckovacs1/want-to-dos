@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Paper, Typography, TextField } from '@mui/material';
+import { Box, Button, Checkbox, Typography, TextField } from '@mui/material';
 
 function LoginForm(){
     return(
