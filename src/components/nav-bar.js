@@ -19,7 +19,7 @@ function NavBar(){
                 <Box>
                     <Typography 
                     sx={{
-                        color: 'darkblue',
+                        color: '#143AA2',
                         fontSize: '18pt'
                     }}> 
                         WTD 
@@ -35,7 +35,7 @@ function NavBar(){
                     display: 'flex',
                     flexDirection: 'row',
                     columnGap: '20px',
-                    color: 'darkblue'
+                    color: '#143AA2',
                 }}>
                     <Typography> Home </Typography>
                     <Typography> Progress </Typography>
