@@ -35,7 +35,7 @@ function ProfilePage(){
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'center',
-                    backgroundColor: '#F5F5F5'
+                    backgroundColor: '#D3D4D7'
                 }}>
                     <Box sx={{
                         display: 'flex',
@@ -140,7 +140,7 @@ function ProfilePage(){
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'center',
-                    backgroundColor: '#F5F5F5'
+                    backgroundColor: '#D3D4D7'
                 }}>
 
                     <Box
@@ -175,7 +175,7 @@ function ProfilePage(){
                     columnGap: '50px',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    backgroundColor: '#F5F5F5'
+                    backgroundColor: '#D3D4D7'
                 }}>
                 <Typography> Find a Friend</Typography>
                     <Box
