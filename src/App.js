@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box } from "@mui/material";
-import NavBar from "./components/nav-bar";
+import NavBar from "./components/nav-bar/nav-bar";
 import ProfilePage from "./components/profile-page/user-profile";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginForm from './components/log-in/login-form';
+import Home from './components/home/home';
 import RegistrationForm from './components/log-in/registration-form';
 
 function App() {
@@ -21,13 +22,12 @@ function App() {
           
         <Router>
           <Routes>
-            <Route path="/">
-              Profile
-            </Route>
+
             <Route path="/profile" element={<ProfilePage />}> </Route>
             <Route path="/login" element={<LoginForm />}> </Route>
             <Route path='/register' element={<RegistrationForm />}> </Route>
-          </Routes>
+            <Route path='/' element={<Home />}> </Route>
+          </Routes> 
         </Router>
 
         {/* <ProfilePage />
