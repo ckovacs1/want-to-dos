@@ -1,6 +1,6 @@
-import { Box, Button, Checkbox, Typography, TextField } from '@mui/material';
+import { Box, Button, Typography, TextField } from '@mui/material';
 
-function LoginForm(){
+function RegistrationForm(){
     return(
         <Box
         sx={{
@@ -24,8 +24,13 @@ function LoginForm(){
                 borderRadius: '25px 0px 0px 25px',
 
             }}>
-                <Box>
-                    <Typography variant='h3'> Welcome Back!</Typography>
+                <Box
+                sx={{
+                    textAlign:'center'
+                }}>
+                    <Typography variant='h3'> Welcome to Want To Do!</Typography>
+                    <Typography variant='h5'> Join us in improving our lives!</Typography>
+
                 </Box>
                 
             </Box>
@@ -44,7 +49,7 @@ function LoginForm(){
             }}>
 
                 <Box>
-                    <Typography variant='h4' sx={{color: '#04060D'}}> Log In </Typography>
+                    <Typography variant='h4' sx={{color: '#04060D'}}> Register </Typography>
                 </Box>
 
                 <Box
@@ -55,36 +60,17 @@ function LoginForm(){
                     width:'65%',
                     flexWrap: 'wrap'
                 }}>
-
+                    <TextField label="Name" variant="standard" />
                     <TextField label="Email" variant="standard" />
                     <TextField label="Password" variant="standard" />
+                    <TextField label="Confirm Password" variant="standard" />
 
-                    <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-around',
-                        flexWrap: 'wrap'
-                    }}>
-                        <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            flexWrap: 'wrap'
-                        }}>
-                            <Checkbox/>
-                            <Typography sx={{mt: '10px'}}> Remember Me</Typography>
-                        </Box>
-
-                        <Typography sx={{mt:'10px'}}> Forgot Password </Typography>
-                    </Box>
-
-                    <Button variant="contained"> Login </Button>
+                    <Button variant="contained"> Register </Button>
                 </Box>
-                <Typography sx={{mt:'85px'}}> Need an Account? Sign Up</Typography>
+                <Typography sx={{mt:'85px'}}> Already Have An Account? Sign In</Typography>
             </Box>
         </Box>
     );
 }
 
-export default LoginForm;
+export default RegistrationForm;

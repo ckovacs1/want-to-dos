@@ -1,4 +1,6 @@
+import React from "react";
 import {Box, Typography} from '@mui/material';
+import { Link, BrowserRouter as Router } from 'react-router-dom';
 
 function NavBar(){
     return(
@@ -37,11 +39,13 @@ function NavBar(){
                     columnGap: '20px',
                     color: '#143AA2',
                 }}>
-                    <Typography> Home </Typography>
-                    <Typography> Progress </Typography>
-                    <Typography> Profile </Typography>
-                    <Typography> Settings </Typography>
+                    <Router>
 
+                        <Typography> Home </Typography>
+                        <Typography> Progress </Typography>
+                        <Link to="/profile"> Profile </Link>
+                        <Typography> Settings </Typography>
+                    </Router>
                 </Box>
 
             </Box>
