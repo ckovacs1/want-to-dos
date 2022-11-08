@@ -29,7 +29,7 @@ function RegistrationForm(){
                     textAlign:'center'
                 }}>
                     <Typography variant='h3'> Welcome to Want To Do!</Typography>
-                    <Typography variant='h5'> Join us in improving our lives! :)</Typography>
+                    <Typography variant='h5'> Join us in improving our lives!</Typography>
 
                 </Box>
                 
