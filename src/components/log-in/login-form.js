@@ -57,7 +57,7 @@ function LoginForm(){
                 }}>
 
                     <TextField label="Email" variant="standard" />
-                    <TextField label="Password" variant="standard" />
+                    <TextField label="Password" variant="standard" type='password'/>
 
                     <Box
                     sx={{

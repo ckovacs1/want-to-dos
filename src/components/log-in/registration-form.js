@@ -62,8 +62,8 @@ function RegistrationForm(){
                 }}>
                     <TextField label="Name" variant="standard" />
                     <TextField label="Email" variant="standard" />
-                    <TextField label="Password" variant="standard" />
-                    <TextField label="Confirm Password" variant="standard" />
+                    <TextField label="Password" variant="standard" type='password' />
+                    <TextField label="Confirm Password" variant="standard" type='password' />
 
                     <Button variant="contained"> Register </Button>
                 </Box>
