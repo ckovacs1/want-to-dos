@@ -1,6 +1,6 @@
 import React from "react";
 import {Box, Typography} from '@mui/material';
-import { Link, BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function NavBar(){
     return(
@@ -43,7 +43,7 @@ function NavBar(){
 
                         <Typography> Home </Typography>
                         <Typography> Progress </Typography>
-                        <Link to="/profile"> Profile </Link>
+                        <Typography> Profile </Typography>
                         <Typography> Settings </Typography>
                     </Router>
                 </Box>
