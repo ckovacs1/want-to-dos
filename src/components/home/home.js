@@ -28,7 +28,7 @@ function Home (){
                 sx={{
                     textAlign:'center'
                 }}>
-                    <Typography variant='h3'> Welcome to Want To Do!</Typography>
+                    <Typography variant='h3'> Welcome to Want-To-Do!</Typography>
                     <Typography variant='h5'> Join us in improving our lives!</Typography>
                     <Typography> Register Now / Sign In </Typography>
 
