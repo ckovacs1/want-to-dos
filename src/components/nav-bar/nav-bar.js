@@ -1,6 +1,7 @@
 import React from "react";
 import {Box, Typography} from '@mui/material';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 function NavBar(){
     return(
@@ -39,13 +40,11 @@ function NavBar(){
                     columnGap: '20px',
                     color: '#143AA2',
                 }}>
-                    <Router>
-
-                        <Typography> Home </Typography>
-                        <Typography> Progress </Typography>
-                        <Typography> Profile </Typography>
-                        <Typography> Settings </Typography>
-                    </Router>
+                        <Link to='/'><Typography> Home </Typography></Link>
+                        <Link to='#'><Typography> Progress </Typography></Link>
+                        <Link to='/profile'><Typography> Profile </Typography></Link>
+                        <Link to='/notification'><Typography> Notification </Typography></Link>
+                        <Link to='#'><Typography> Settings </Typography></Link>
                 </Box>
 
             </Box>

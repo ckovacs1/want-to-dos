@@ -123,7 +123,6 @@ function ProfilePage(){
                 alignItems: 'center',
                 justifyContent: 'center',
                 rowGap: '5%',
-                mt: '-70px',
                 ml: '-80px'
             }}>
                 <Box 
