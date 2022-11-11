@@ -1,4 +1,6 @@
+import React from "react";
 import {Box, Typography} from '@mui/material';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function NavBar(){
     return(
@@ -19,7 +21,7 @@ function NavBar(){
                 <Box>
                     <Typography 
                     sx={{
-                        color: 'darkblue',
+                        color: '#143AA2',
                         fontSize: '18pt'
                     }}> 
                         WTD 
@@ -35,13 +37,15 @@ function NavBar(){
                     display: 'flex',
                     flexDirection: 'row',
                     columnGap: '20px',
-                    color: 'darkblue'
+                    color: '#143AA2',
                 }}>
-                    <Typography> Home </Typography>
-                    <Typography> Progress </Typography>
-                    <Typography> Profile </Typography>
-                    <Typography> Settings </Typography>
+                    <Router>
 
+                        <Typography> Home </Typography>
+                        <Typography> Progress </Typography>
+                        <Typography> Profile </Typography>
+                        <Typography> Settings </Typography>
+                    </Router>
                 </Box>
 
             </Box>
