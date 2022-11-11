@@ -87,7 +87,7 @@ function Addwanttodo() {
       <FormControl sx={{ width: '150px' }}>
         <InputLabel id="repetition-select">Repetition</InputLabel>
         <Select
-          labelId="repetition=select"
+          labelId="repetition-select"
           value={repetition}
           label="Repetition"
           name="repetition"
@@ -96,6 +96,22 @@ function Addwanttodo() {
           <MenuItem value="weekly">Weekly</MenuItem>
           <MenuItem value="monthly">Monthly</MenuItem>
           <MenuItem value="yearly">Yearly</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl sx={{ width: '150px' }}>
+        <InputLabel id="category-select">Category</InputLabel>
+        <Select
+          labelId="category-select"
+          value={category}
+          label="Category"
+          name="category"
+          onChange={onChange}
+        >
+          <MenuItem value="fitness">Fitness</MenuItem>
+          <MenuItem value="nutrition/diet">Nutrition/Diet</MenuItem>
+          <MenuItem value="lifestyle">Lifestyle</MenuItem>
+          <MenuItem value="skills/learning">Skills/Learning</MenuItem>
+          <MenuItem value="mindfulness">Mindfulness</MenuItem>
         </Select>
       </FormControl>
     </div>
