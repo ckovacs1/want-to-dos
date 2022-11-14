@@ -9,6 +9,7 @@ import {
   Select,
   TextField,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
@@ -40,6 +41,18 @@ function Addwanttodo() {
     category,
     inviteFriends,
   } = inputs;
+
+  //popup
+  const [openPopup, setOpenPopup] = useState(false);
+
+  const onPopupOpen = () => {
+    setOpenPopup(true);
+  };
+
+  const onPopupClose = () => {
+    console.log('onPopupClose');
+    setOpenPopup(false);
+  };
 
   //usestate for invitefriends
   const [inviteFriendsInput, setInviteFriendsInput] = useState('');
@@ -89,6 +102,10 @@ function Addwanttodo() {
     }
   };
 
+  if (!openPopup) {
+    return null;
+  }
+
   return (
     <Box
       sx={{
@@ -100,8 +117,13 @@ function Addwanttodo() {
       }}
     >
       <div className="addwanttodo__wrapper">
-        <div className="addwanttodo__title">
-          <label>Title</label>
+        <div className="addwanttodo__header">
+          <div className="addwanttodo__header-title">Add wanttodo</div>
+          <CloseIcon onClick={onPopupClose} />
+        </div>
+
+        <div className="addwanttodo__input-wrapper">
+          <label className="addwanttodo__label">Title</label>
           <TextField
             type="text"
             name="title"
@@ -109,10 +131,11 @@ function Addwanttodo() {
             onChange={onChange}
             value={title}
             className="addwanttodo__title-input"
+            sx={{ width: '70%' }}
           />
         </div>
-        <div className="addwanttodo__description">
-          <label>Description</label>
+        <div className="addwanttodo__input-wrapper">
+          <label className="addwanttodo__label">Description</label>
           <TextField
             type="text"
             name="description"
@@ -120,11 +143,12 @@ function Addwanttodo() {
             onChange={onChange}
             value={description}
             className="addwanttodo__description-input"
+            sx={{ width: '70%' }}
           />
         </div>
-        <div className="addwanttodo__date">
-          <div className="addwanttodo__date-start">
-            <label className="addwanttodo__date-start-label">Starts on</label>
+        <div className="addwanttodo__input-wrapper">
+          <div className="addwanttodo__input-wrapper-inner">
+            <label className="addwanttodo__label">Starts on</label>
             <LocalizationProvider
               dateAdapter={AdapterDayjs}
               className="addwanttodo__date-start-input"
@@ -142,8 +166,8 @@ function Addwanttodo() {
               />
             </LocalizationProvider>
           </div>
-          <div className="addwanttodo__date-end">
-            <label className="addwanttodo__date-end-label">Ends on</label>
+          <div className="addwanttodo__input-wrapper-inner">
+            <label className="addwanttodo__label">Ends on</label>
             <LocalizationProvider
               dateAdapter={AdapterDayjs}
               className="addwanttodo__date-end-input"
@@ -163,7 +187,8 @@ function Addwanttodo() {
           </div>
         </div>
 
-        <div className="addwanttodo__repetition">
+        <div className="addwanttodo__input-wrapper">
+          <label className="addwanttodo__label">Repetition</label>
           <FormControl sx={{ width: '150px' }}>
             <InputLabel id="repetition-select">Repetition</InputLabel>
             <Select
@@ -179,8 +204,23 @@ function Addwanttodo() {
             </Select>
           </FormControl>
         </div>
-
-        <div className="addwanttodo__category">
+        <div className="addwanttodo__input-wrapper">
+          <label className="addwanttodo__label">Repeat on</label>
+          <div className="addwanttodo__repeaton-buttons">
+            {DAYS.map(day => (
+              <Button
+                variant={repeatOn.includes(day) ? 'contained' : 'outlined'}
+                sx={{ mx: 0.5 }}
+                onClick={() => onClickRepeatOnButton(day)}
+                key={day}
+              >
+                {day}
+              </Button>
+            ))}
+          </div>
+        </div>
+        <div className="addwanttodo__input-wrapper">
+          <label className="addwanttodo__label">Category</label>
           <FormControl sx={{ width: '150px' }}>
             <InputLabel id="category-select">Category</InputLabel>
             <Select
@@ -199,13 +239,15 @@ function Addwanttodo() {
           </FormControl>
         </div>
 
-        <div className="addwanttodo__invite-friends">
+        <div className="addwanttodo__input-wrapper">
+          <label className="addwanttodo__label">Invite Friends</label>
           <TextField
             type="text"
             label="Invite Friends"
             onChange={onChangeInviteFriendsInput}
             onKeyDown={onKeydownInviteFriendsInput}
             value={inviteFriendsInput}
+            sx={{ mr: 0.5 }}
           />
           {inviteFriends.map(friend => (
             <Chip
@@ -213,25 +255,12 @@ function Addwanttodo() {
               label={friend}
               variant="outlined"
               onDelete={() => onDeleteInviteFriend(friend)}
+              sx={{ mx: 0.5 }}
             />
             //add validate id later
           ))}
         </div>
-        <div className="addwanttodo__repeaton">
-          <label>Repeat on</label>
-          <div className="addwanttodo__repeaton-buttons">
-            {DAYS.map(day => (
-              <Button
-                variant={repeatOn.includes(day) ? 'contained' : 'outlined'}
-                sx={{ mx: 0.5 }}
-                onClick={() => onClickRepeatOnButton(day)}
-                key={day}
-              >
-                {day}
-              </Button>
-            ))}
-          </div>
-        </div>
+
         <div className="addwanttodo__submit">
           <Button
             variant="contained"
@@ -242,7 +271,7 @@ function Addwanttodo() {
           </Button>
           <Button
             variant="outlined"
-            onClick={() => {}}
+            onClick={onPopupClose}
           >
             {' '}
             Cancel

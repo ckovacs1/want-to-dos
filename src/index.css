@@ -1,4 +1,9 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
 a {
-	text-decoration: none;
-	color: #143AA2;
+  text-decoration: none;
+  color: #143aa2;
 }
