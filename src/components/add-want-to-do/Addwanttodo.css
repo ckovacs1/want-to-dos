@@ -1,5 +1,50 @@
 .addwanttodo__wrapper {
-  width: 600px;
-  height: 500px;
+  width: 760px;
+  height: 600px;
   border: 1px solid black;
+  overflow: scroll;
+  padding: 20px 0;
+}
+
+.addwanttodo__header {
+  margin: 0 20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid #acacac;
+}
+
+.addwanttodo__input-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.addwanttodo__input-wrapper-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.addwanttodo__label {
+  display: flex;
+  width: 140px;
+  padding-left: 20px;
+  height: 100%;
+  align-items: center;
+}
+
+.addwanttodo__submit {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.addwanttodo__submit > button {
+  margin: 0 4px;
 }
