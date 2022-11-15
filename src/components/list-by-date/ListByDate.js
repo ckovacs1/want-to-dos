@@ -23,9 +23,8 @@ function ListByDate() {
         </div>
       </div>
       <div className="listbydate__add-wrapper">
-        <Button variant="contained">Add Task</Button>
+        <Addwanttodo />
       </div>
-      <Addwanttodo />
     </div>
   );
 }
