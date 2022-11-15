@@ -15,9 +15,7 @@ function ListByDateItem() {
           </div>
         </div>
         <div className="listbydate__date-content-right">
-          <div className="listbydate__date-content-category">
-            example category
-          </div>
+          <div className="listbydate__date-content-category">Fitness</div>
         </div>
       </div>
     </>
