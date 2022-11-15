@@ -1,13 +1,36 @@
+import { useState } from 'react';
 import { Button, Box, TextField, Typography } from '@mui/material';
 import MiniProfile from './mini-profile';
 import pfp from './i.png';
 import AddIcon from '@mui/icons-material/Add';
+import axios from 'axios';
 
 function ProfilePage(){
+
+    const [ name, setName ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ bio, setBio ] = useState('');
 
     const imgStyle = {
         borderRadius: '50%'
     }
+
+    function getProfiles(inputName){
+
+        axios.get('http://localhost:8080/profile').then(res =>{
+            const users = res.data;
+
+            for (let i = 0 ; i < Object.keys(users.profiles).length; i++){
+                if(users.profiles[i].name===inputName){
+                    setName(users.profiles[i].name);
+                    setEmail(users.profiles[i].email);
+                    setBio(users.profiles[i].bio);
+                }
+            }
+        })
+    }
+
+    getProfiles('Nicolas Latifi');
 
     return(
         <Box 
@@ -67,14 +90,14 @@ function ProfilePage(){
                                 sx={{
                                     fontSize: '14pt',
                                 }}>
-                                    Charles Leclerc
+                                    {name}
                                 </Typography>
 
                                 <Typography
                                 sx={{
                                     fontSize: '14pt',
                                 }}>
-                                    cleclerc@gmail.com
+                                    {email}
                                 </Typography>
                             </Box>
 
@@ -86,10 +109,7 @@ function ProfilePage(){
                                 textAlign: 'center'
                             }}>
                                 <Typography>
-                                    Charles Perceval Leclerc is a Monégasque racing driver, 
-                                    currently racing in Formula One for Scuderia Ferrari. 
-                                    He won the GP3 Series championship in 2016 and the FIA Formula 2 
-                                    Championship in 2017.
+                                    {bio}
                                 </Typography>
                             </Box>
                         </Box>
