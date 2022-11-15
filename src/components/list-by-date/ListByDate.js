@@ -11,13 +11,13 @@ function ListByDate() {
       <div className="listbydate__wrapper">
         <div className="listbydate__date-wrapper">
           <div className="listbydate__date-header">
-            <div className="listbydate__date-text">January 30</div>
+            <div className="listbydate__date-text">Today</div>
           </div>
           <ListByDateSection />
         </div>
         <div className="listbydate__date-wrapper">
           <div className="listbydate__date-header">
-            <div className="listbydate__date-text">January 30</div>
+            <div className="listbydate__date-text">Tomorrow</div>
           </div>
           <ListByDateSection />
         </div>
