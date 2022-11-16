@@ -2,19 +2,18 @@ import React from 'react';
 import NotificationItem from './NotificationItem';
 import './NotificationSection.css';
 
-function NotificationSection() {
+function NotificationSection({ data }) {
   return (
     <div className="notification__date-section">
       <ul className="notification__date-list">
-        <li className="notification__date-list-item">
-          <NotificationItem />
-        </li>
-        <li className="notification__date-list-item">
-          <NotificationItem />
-        </li>
-        <li className="notification__date-list-item">
-          <NotificationItem />
-        </li>
+        {data.map(item => (
+          <li
+            className="notification__date-list-item"
+            key={item.id}
+          >
+            <NotificationItem data={item} />
+          </li>
+        ))}
       </ul>
     </div>
   );

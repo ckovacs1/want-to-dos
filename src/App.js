@@ -9,6 +9,7 @@ import Home from './components/home/home';
 import RegistrationForm from './components/log-in/registration-form';
 import { Addwanttodo } from './components/add-want-to-do';
 import { ListByDate } from './components/list-by-date';
+import { AllFriends } from './components/all-friends';
 
 function App() {
   return (
@@ -36,6 +37,10 @@ function App() {
         >
           {' '}
         </Route>
+        <Route
+          path="/all-friends"
+          element={<AllFriends />}
+        ></Route>
         <Route
           path="/login"
           element={<LoginForm />}
