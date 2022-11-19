@@ -65,6 +65,13 @@ function App() {
         >
           {' '}
         </Route>
+        <Route 
+          path="/add"
+          element={<Addwanttodo />}
+        >
+          {' '}
+        </Route>
+
       </Routes>
 
       {/* <ProfilePage />
