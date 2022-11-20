@@ -8,7 +8,7 @@ import {
   Alert,
 } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../api/user';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
@@ -169,7 +169,10 @@ function LoginForm({ authDispatch }) {
             Login{' '}
           </Button>
         </Box>
-        <Typography sx={{ mt: '85px' }}> Need an Account? Sign Up</Typography>
+        <Typography sx={{ mt: '85px' }}>
+          {' '}
+          Need an Account? <Link to="/register">Sign Up</Link>
+        </Typography>
       </Box>
     </Box>
   );
