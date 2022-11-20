@@ -9,3 +9,12 @@ export const login = async userData => {
 
   return axiosResponse.data;
 };
+
+export const registerUser = async userData => {
+  const axiosResponse = await axios.post(
+    getRequestUrl('/api/users/register'),
+    userData,
+  );
+
+  return axiosResponse.data;
+};
