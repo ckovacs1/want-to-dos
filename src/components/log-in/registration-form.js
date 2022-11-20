@@ -1,6 +1,6 @@
 import { Box, Button, Typography, TextField, Alert } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../../api/user';
 
 function RegistrationForm() {
@@ -152,7 +152,7 @@ function RegistrationForm() {
         </Box>
         <Typography sx={{ mt: '85px' }}>
           {' '}
-          Already Have An Account? Sign In
+          Already Have An Account? <Link to="/login">Sign In</Link>
         </Typography>
       </Box>
     </Box>
