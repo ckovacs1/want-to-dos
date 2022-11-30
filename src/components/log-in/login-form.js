@@ -132,6 +132,7 @@ function LoginForm({ authDispatch }) {
             name="password"
             onChange={onChange}
             value={password}
+            type="password"
           />
 
           <Box
