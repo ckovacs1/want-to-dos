@@ -47,17 +47,11 @@ function NavBar() {
           <Link to="/list-by-date">
             <Typography> List </Typography>
           </Link>
-          <Link to="#">
-            <Typography> Progress </Typography>
-          </Link>
           <Link to="/profile">
             <Typography> Profile </Typography>
           </Link>
           <Link to="/notification">
             <Typography> Notification </Typography>
-          </Link>
-          <Link to="#">
-            <Typography> Settings </Typography>
           </Link>
         </Box>
       </Box>

@@ -16,7 +16,7 @@ function ProfilePage() {
   };
 
   function getProfiles(inputName) {
-    axios.get('http://localhost:8080/profile').then(res => {
+    axios.get('http://localhost:5000/profile').then(res => {
       const users = res.data;
 
       for (let i = 0; i < Object.keys(users.profiles).length; i++) {

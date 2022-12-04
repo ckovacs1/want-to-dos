@@ -34,8 +34,8 @@ function Notification() {
   const getNotifications = async () => {
     try {
       const followers = await getFollowers();
-      const notifications = await fetchNotifications();
-
+      const { data: notifications } = await fetchNotifications();
+      console.log(`notification: ${notifications.length}`);
       for (let i = 0; i < notifications.length; i++) {
         const followerId = notifications[i].description.follower;
         const follower = followers.find(
@@ -45,7 +45,7 @@ function Notification() {
         notifications[i].description.follower = follower;
       }
 
-      setNotiData(notifications);
+      setNotiData(notifications || []);
     } catch (e) {
       if (e.response.data.error === 'Notification not found') {
         setNotiData([]);
@@ -54,14 +54,16 @@ function Notification() {
   };
 
   const getFollowers = async () => {
-    const data = await fetchFollowers();
-    return data;
+    const { followers } = await fetchFollowers();
+    console.log(`followers: ${followers}`);
+    return followers;
   };
 
   useEffect(() => {
     getNotifications();
   }, []); // called when mounted
 
+  console.log(`notiData: ${notiData}`);
   // Filter notifications
   const todayNotifications = notiData.filter(noti =>
     checkToday(noti.description.date),
