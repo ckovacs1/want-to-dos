@@ -6,3 +6,11 @@ export const fetchNotifications = async () => {
 
   return axiosResponse.data;
 };
+
+export const updateNotificationToRead = async id => {
+  const axiosResponse = await axios.post(
+    getRequestUrl(`/api/setNotifAsRead/${id}`),
+  );
+
+  return axiosResponse.data;
+};

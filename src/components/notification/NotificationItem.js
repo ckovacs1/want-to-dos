@@ -15,14 +15,15 @@ function NotificationItem({ data }) {
         )}
       </div>
       <div className="notification__date-item-content">
-        <div className="notification__date-content-left">
+        <div className="notification__date-content">
           <div className="notification__date-content-title">{title}</div>
           <div className="notification__date-content-description">
-            {follower.name} has followed you. {follower.name} can now invite you
-            to his/her wantToDo.
+            {follower
+              ? `${follower.name} has followed you. ${follower.name} can now invite you
+            to his/her wantToDo.`
+              : 'Error! The username is null.'}
           </div>
         </div>
-        <div className="notification__date-content-right"></div>
       </div>
     </>
   );

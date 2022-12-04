@@ -1,7 +1,10 @@
 import { Button, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { fetchFollowers } from '../../api/follow';
-import { fetchNotifications } from '../../api/notification';
+import {
+  fetchNotifications,
+  updateNotificationToRead,
+} from '../../api/notification';
 import { checkDataIsEmpty } from '../../utils/array';
 import { checkToday } from '../../utils/date';
 import Addwanttodo from '../add-want-to-do/Addwanttodo';
@@ -13,21 +16,26 @@ import NotificationSection from './NotificationSection';
 function Notification() {
   const [notiData, setNotiData] = useState([]);
 
+  // Update notifation
+  const updateAllNotificationToRead = async ids => {
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i];
+      await updateNotificationToRead(id);
+    }
+
+    setNotiData(notiData.map(noti => ({ ...noti, read: true })));
+  };
+
   const onClickAllReadButton = () => {
-    setNotiData([
-      ...notiData.map(section => ({
-        ...section,
-        data: [...section.data.map(noti => ({ ...noti, isRead: true }))],
-      })),
-    ]);
+    updateAllNotificationToRead();
   };
 
   // Fetching server data
   const getNotifications = async () => {
     try {
       const followers = await getFollowers();
-      const notifications = await fetchNotifications();
-
+      const { data: notifications } = await fetchNotifications();
+      console.log(`notification: ${notifications.length}`);
       for (let i = 0; i < notifications.length; i++) {
         const followerId = notifications[i].description.follower;
         const follower = followers.find(
@@ -37,7 +45,7 @@ function Notification() {
         notifications[i].description.follower = follower;
       }
 
-      setNotiData(notifications);
+      setNotiData(notifications || []);
     } catch (e) {
       if (e.response.data.error === 'Notification not found') {
         setNotiData([]);
@@ -46,14 +54,16 @@ function Notification() {
   };
 
   const getFollowers = async () => {
-    const data = await fetchFollowers();
-    return data;
+    const { followers } = await fetchFollowers();
+    console.log(`followers: ${followers}`);
+    return followers;
   };
 
   useEffect(() => {
     getNotifications();
   }, []); // called when mounted
 
+  console.log(`notiData: ${notiData}`);
   // Filter notifications
   const todayNotifications = notiData.filter(noti =>
     checkToday(noti.description.date),

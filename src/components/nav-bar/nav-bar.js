@@ -2,7 +2,8 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-function NavBar() {
+function NavBar({ authState }) {
+  const { isAuthenticated } = authState;
   return (
     <Box
       sx={{
@@ -14,9 +15,11 @@ function NavBar() {
       <Box
         sx={{
           display: 'flex',
+          width: '80%',
+          margin: 'auto',
           height: '100%',
           flexDirection: 'row',
-          justifyContent: 'space-around',
+          justifyContent: 'space-between',
           alignItems: 'center',
         }}
       >
@@ -27,39 +30,30 @@ function NavBar() {
               fontSize: '18pt',
             }}
           >
-            WTD
+            <Link to="/">WTD</Link>
           </Typography>
         </Box>
 
-        <Box></Box>
-
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            columnGap: '20px',
-            color: '#143AA2',
-          }}
-        >
-          <Link to="/">
-            <Typography> Home </Typography>
-          </Link>
-          <Link to="/list-by-date">
-            <Typography> List </Typography>
-          </Link>
-          <Link to="#">
-            <Typography> Progress </Typography>
-          </Link>
-          <Link to="/profile">
-            <Typography> Profile </Typography>
-          </Link>
-          <Link to="/notification">
-            <Typography> Notification </Typography>
-          </Link>
-          <Link to="#">
-            <Typography> Settings </Typography>
-          </Link>
-        </Box>
+        {isAuthenticated && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              columnGap: '20px',
+              color: '#143AA2',
+            }}
+          >
+            <Link to="/list-by-date">
+              <Typography> List </Typography>
+            </Link>
+            <Link to="/profile">
+              <Typography> Profile </Typography>
+            </Link>
+            <Link to="/notification">
+              <Typography> Notification </Typography>
+            </Link>
+          </Box>
+        )}
       </Box>
     </Box>
   );

@@ -4,6 +4,7 @@ import MiniProfile from './mini-profile';
 import pfp from './i.png';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function ProfilePage() {
   const [name, setName] = useState('');
@@ -15,7 +16,7 @@ function ProfilePage() {
   };
 
   function getProfiles(inputName) {
-    axios.get('http://localhost:8080/profile').then(res => {
+    axios.get('http://localhost:5000/profile').then(res => {
       const users = res.data;
 
       for (let i = 0; i < Object.keys(users.profiles).length; i++) {
@@ -153,43 +154,71 @@ function ProfilePage() {
       >
         <Box
           sx={{
-            mb: '-35px',
-          }}
-        >
-          Friends
-        </Box>
-        <Box
-          sx={{
-            height: '30vh',
-            borderRadius: '25px',
             width: '65%',
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'center',
-            backgroundColor: '#D3D4D7',
           }}
         >
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'row',
-              justifyContent: 'center',
-              flexWrap: 'wrap',
-              overflow: 'hidden',
-              columnGap: '30px',
+              justifyContent: 'end',
               alignItems: 'center',
+              width: '100%',
             }}
           >
-            <MiniProfile />
-            <MiniProfile />
+            <Link to="/all-friends">
+              <Button
+                variant="contained"
+                size="small"
+              >
+                View all
+              </Button>
+            </Link>
+          </Box>
+          <Box
+            sx={{
+              my: 1,
+              textAlign: 'center',
+              fontSize: '22px',
+            }}
+          >
+            Friends
+          </Box>
+          <Box
+            sx={{
+              height: '30vh',
+              borderRadius: '25px',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              backgroundColor: '#D3D4D7',
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                overflow: 'hidden',
+                columnGap: '30px',
+                alignItems: 'center',
+              }}
+            >
+              <MiniProfile />
+              <MiniProfile />
 
-            <MiniProfile />
-            <MiniProfile />
-            <MiniProfile />
-            <MiniProfile />
+              <MiniProfile />
+              <MiniProfile />
+              <MiniProfile />
+              <MiniProfile />
+            </Box>
           </Box>
         </Box>
-
         <Box
           sx={{
             height: '15vh',

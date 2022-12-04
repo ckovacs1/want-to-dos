@@ -18,3 +18,9 @@ export const registerUser = async userData => {
 
   return axiosResponse.data;
 };
+
+export const fetchMe = async () => {
+  const axiosResponse = await axios.get(getRequestUrl('/api/loggedInUserInfo'));
+
+  return axiosResponse.data;
+};

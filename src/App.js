@@ -51,7 +51,7 @@ function App() {
         rowGap: '15px',
       }}
     >
-      <NavBar />
+      <NavBar authState={authState} />
 
       <Routes>
         <Route
@@ -92,7 +92,12 @@ function App() {
         </Route>
         <Route
           path="/"
-          element={<Home authState={authState} />}
+          element={
+            <Home
+              authState={authState}
+              authDispatch={dispatch}
+            />
+          }
         >
           {' '}
         </Route>
