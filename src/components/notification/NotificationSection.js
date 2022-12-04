@@ -9,7 +9,7 @@ function NotificationSection({ data }) {
         {data.map(item => (
           <li
             className="notification__date-list-item"
-            key={item.id}
+            key={item._id}
           >
             <NotificationItem data={item} />
           </li>
