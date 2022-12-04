@@ -6,6 +6,8 @@ import {
   Typography,
   TextField,
   Alert,
+  FormGroup,
+  FormControlLabel,
 } from '@mui/material';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,21 +15,31 @@ import { login } from '../../api/user';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
+export const REMEMBER_ME_KEY = 'rememberMe';
+
 function LoginForm({ authDispatch }) {
   const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
+    rememberMe: false,
   });
 
-  const { email, password } = inputs;
+  const { email, password, rememberMe } = inputs;
 
   const onChange = e => {
     const { name, value } = e.target;
     setInputs({
       ...inputs,
       [name]: value,
+    });
+  };
+
+  const onChangeRememberMe = e => {
+    setInputs({
+      ...inputs,
+      rememberMe: !rememberMe,
     });
   };
 
@@ -54,7 +66,12 @@ function LoginForm({ authDispatch }) {
     }
   };
 
+  const saveRememberMe = () => {
+    localStorage.setItem(REMEMBER_ME_KEY, rememberMe);
+  };
+
   const onClickLogin = () => {
+    saveRememberMe();
     loginUser(email, password);
   };
 
@@ -150,8 +167,17 @@ function LoginForm({ authDispatch }) {
                 flexWrap: 'wrap',
               }}
             >
-              <Checkbox />
-              <Typography sx={{ mt: '10px' }}> Remember Me</Typography>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      defaultChecked={rememberMe}
+                      onChange={onChangeRememberMe}
+                    />
+                  }
+                  label="Remember Me"
+                />
+              </FormGroup>
             </Box>
 
             <Typography sx={{ mt: '10px' }}> Forgot Password </Typography>
