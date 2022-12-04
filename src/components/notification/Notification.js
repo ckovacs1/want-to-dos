@@ -1,7 +1,10 @@
 import { Button, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { fetchFollowers } from '../../api/follow';
-import { fetchNotifications } from '../../api/notification';
+import {
+  fetchNotifications,
+  updateNotificationToRead,
+} from '../../api/notification';
 import { checkDataIsEmpty } from '../../utils/array';
 import { checkToday } from '../../utils/date';
 import Addwanttodo from '../add-want-to-do/Addwanttodo';
@@ -13,13 +16,18 @@ import NotificationSection from './NotificationSection';
 function Notification() {
   const [notiData, setNotiData] = useState([]);
 
+  // Update notifation
+  const updateAllNotificationToRead = async ids => {
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i];
+      await updateNotificationToRead(id);
+    }
+
+    setNotiData(notiData.map(noti => ({ ...noti, read: true })));
+  };
+
   const onClickAllReadButton = () => {
-    setNotiData([
-      ...notiData.map(section => ({
-        ...section,
-        data: [...section.data.map(noti => ({ ...noti, isRead: true }))],
-      })),
-    ]);
+    updateAllNotificationToRead();
   };
 
   // Fetching server data
