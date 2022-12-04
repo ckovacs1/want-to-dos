@@ -5,6 +5,7 @@ import { fetchTodosDay } from '../../api/todo';
 import { checkDataIsEmpty } from '../../utils/array';
 import { checkToday } from '../../utils/date';
 import Addwanttodo from '../add-want-to-do/Addwanttodo';
+import AlertInfo from '../common/alert-info';
 import './ListByDate.css';
 
 import ListByDateSection from './ListByDateSection';
@@ -50,19 +51,7 @@ function ListByDate() {
             </Typography>
           </div>
           {checkDataIsEmpty(todayTodos) ? (
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                py: 2,
-                backgroundColor: '#eeeeee',
-                m: 2,
-                borderRadius: 2,
-              }}
-            >
-              There is no wantToDo yet. How about adding a new wantToDo?
-            </Box>
+            <AlertInfo content="There is no wantToDo yet. How about adding a new wantToDo?" />
           ) : (
             <ListByDateSection todos={todayTodos} />
           )}

@@ -1,55 +1,17 @@
 import { Button, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { fetchFollowers } from '../../api/follow';
+import { fetchNotifications } from '../../api/notification';
+import { checkDataIsEmpty } from '../../utils/array';
+import { checkToday } from '../../utils/date';
 import Addwanttodo from '../add-want-to-do/Addwanttodo';
+import AlertInfo from '../common/alert-info';
 import './Notification.css';
 
 import NotificationSection from './NotificationSection';
 
-const data = [
-  {
-    title: 'today',
-    data: [
-      {
-        id: 1,
-        title: 'Incoming Friend Request',
-        description: 'You have a new friend request from Requester Requeston.',
-        isRead: false,
-      },
-      {
-        id: 2,
-        title: 'Incoming Friend Request',
-        description: 'You have a new friend request from Requester Requeston.',
-        isRead: true,
-      },
-      {
-        id: 3,
-        title: 'Incoming Friend Request',
-        description: 'You have a new friend request from Requester Requeston.',
-        isRead: false,
-      },
-    ],
-  },
-  {
-    title: 'yesterday',
-    data: [
-      {
-        id: 4,
-        title: 'Incoming Friend Request',
-        description: 'You have a new friend request from Requester Requeston.',
-        isRead: false,
-      },
-      {
-        id: 5,
-        title: 'Incoming Friend Request',
-        description: 'You have a new friend request from Requester Requeston.',
-        isRead: true,
-      },
-    ],
-  },
-];
-
 function Notification() {
-  const [notiData, setNotiData] = useState(data);
+  const [notiData, setNotiData] = useState([]);
 
   const onClickAllReadButton = () => {
     setNotiData([
@@ -59,6 +21,46 @@ function Notification() {
       })),
     ]);
   };
+
+  // Fetching server data
+  const getNotifications = async () => {
+    try {
+      const followers = await getFollowers();
+      const notifications = await fetchNotifications();
+
+      for (let i = 0; i < notifications.length; i++) {
+        const followerId = notifications[i].description.follower;
+        const follower = followers.find(
+          follower => follower._id === followerId,
+        );
+
+        notifications[i].description.follower = follower;
+      }
+
+      setNotiData(notifications);
+    } catch (e) {
+      if (e.response.data.error === 'Notification not found') {
+        setNotiData([]);
+      }
+    }
+  };
+
+  const getFollowers = async () => {
+    const data = await fetchFollowers();
+    return data;
+  };
+
+  useEffect(() => {
+    getNotifications();
+  }, []); // called when mounted
+
+  // Filter notifications
+  const todayNotifications = notiData.filter(noti =>
+    checkToday(noti.description.date),
+  );
+  const pastNotifications = notiData.filter(
+    noti => !checkToday(noti.description.date),
+  );
 
   return (
     <div className="notification__container">
@@ -79,17 +81,24 @@ function Notification() {
           </Button>
         </div>
 
-        {notiData.map(({ title, data }) => (
-          <div
-            className="notification__date-wrapper"
-            key={title}
-          >
-            <div className="notification__date-header">
-              <div className="notification__date-text">{title}</div>
-            </div>
-            <NotificationSection data={data} />
+        <div className="notification__date-wrapper">
+          <div className="notification__date-header">
+            <div className="notification__date-text">Today</div>
           </div>
-        ))}
+          {checkDataIsEmpty(todayNotifications) ? (
+            <AlertInfo content="No notifications yet. We'll let you know if there's something new." />
+          ) : (
+            <NotificationSection data={todayNotifications} />
+          )}
+        </div>
+        {!checkDataIsEmpty(pastNotifications) && (
+          <div className="notification__date-wrapper">
+            <div className="notification__date-header">
+              <div className="notification__date-text">Past</div>
+            </div>
+            <NotificationSection data={pastNotifications} />
+          </div>
+        )}
       </div>
       <div className="notification__add-wrapper"></div>
     </div>
