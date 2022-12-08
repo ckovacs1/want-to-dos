@@ -10,6 +10,7 @@ import RegistrationForm from './components/log-in/registration-form';
 import { Addwanttodo } from './components/add-want-to-do';
 import { ListByDate } from './components/list-by-date';
 import { AllFriends } from './components/all-friends';
+import { CalendarView } from './components/calendar-view';
 
 const authInitialState = {
   isAuthenticated: false,
@@ -65,6 +66,12 @@ function App() {
         <Route
           path="/profile"
           element={<ProfilePage />}
+        >
+          {' '}
+        </Route>
+        <Route
+          path='/calendar'
+          element={<CalendarView />}
         >
           {' '}
         </Route>
