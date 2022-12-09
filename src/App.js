@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Box } from '@mui/material';
 import NavBar from './components/nav-bar/nav-bar';
 import ProfilePage from './components/profile-page/user-profile';
@@ -11,6 +11,8 @@ import { Addwanttodo } from './components/add-want-to-do';
 import { ListByDate } from './components/list-by-date';
 import { AllFriends } from './components/all-friends';
 import { CalendarView } from './components/calendar-view';
+import { Toaster } from 'react-hot-toast';
+import setAuthToken from './utils/setAuthToken';
 
 const authInitialState = {
   isAuthenticated: false,
@@ -44,6 +46,13 @@ function authReducer(state, action) {
 
 function App() {
   const [authState, dispatch] = useReducer(authReducer, authInitialState);
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwtToken');
+
+    setAuthToken(token);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -52,6 +61,7 @@ function App() {
         rowGap: '15px',
       }}
     >
+      <Toaster position="top-center" />
       <NavBar authState={authState} />
 
       <Routes>
@@ -70,7 +80,7 @@ function App() {
           {' '}
         </Route>
         <Route
-          path='/calendar'
+          path="/calendar"
           element={<CalendarView />}
         >
           {' '}

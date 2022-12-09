@@ -8,3 +8,12 @@ export const fetchTodosDay = async () => {
 
   return axiosResponse.data;
 };
+
+export const postTodo = async data => {
+  const axiosResponse = await axios.post(
+    getRequestUrl('/api/todos/createtoDos'),
+    data,
+  );
+
+  return axiosResponse.data;
+};
