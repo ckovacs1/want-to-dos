@@ -6,3 +6,9 @@ export const fetchFollowers = async () => {
 
   return axiosResponse.data;
 };
+
+export const fetchFollowing = async () => {
+  const axiosResponse = await axios.get(getRequestUrl('/api/viewFollowing'));
+
+  return axiosResponse.data;
+};

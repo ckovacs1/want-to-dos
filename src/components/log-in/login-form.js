@@ -179,8 +179,6 @@ function LoginForm({ authDispatch }) {
                 />
               </FormGroup>
             </Box>
-
-            <Typography sx={{ mt: '10px' }}> Forgot Password </Typography>
           </Box>
           {loginFail && (
             <Alert severity="error">

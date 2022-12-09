@@ -7,13 +7,14 @@ function RegistrationForm() {
   const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({
-    name: '',
+    first: '',
+    last: '',
     email: '',
     password: '',
     password2: '',
   });
 
-  const { name, email, password, password2 } = inputs;
+  const { first, last, email, password, password2 } = inputs;
 
   const onChange = e => {
     const { name, value } = e.target;
@@ -24,6 +25,7 @@ function RegistrationForm() {
   };
 
   const [registerFail, setRegisterFail] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const register = async userData => {
     try {
@@ -31,13 +33,13 @@ function RegistrationForm() {
 
       navigate('/login');
     } catch (err) {
-      console.log(err);
+      setErrors(err.response.data);
       setRegisterFail(true);
     }
   };
 
   const onClickRegister = () => {
-    register({ name, email, password, password2 });
+    register({ name: { first, last }, email, password, password2 });
   };
 
   return (
@@ -107,11 +109,21 @@ function RegistrationForm() {
           }}
         >
           <TextField
-            label="Name"
+            label="First Name"
             variant="standard"
-            name="name"
+            name="first"
             onChange={onChange}
-            value={name}
+            value={first}
+          />
+          {errors.hasOwnProperty('first') && (
+            <Alert severity="error">{errors.first}</Alert>
+          )}
+          <TextField
+            label="Last Name"
+            variant="standard"
+            name="last"
+            onChange={onChange}
+            value={last}
           />
           <TextField
             label="Email"
@@ -150,7 +162,7 @@ function RegistrationForm() {
             Register{' '}
           </Button>
         </Box>
-        <Typography sx={{ mt: '85px' }}>
+        <Typography sx={{ mt: '35px' }}>
           {' '}
           Already Have An Account? <Link to="/login">Sign In</Link>
         </Typography>

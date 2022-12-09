@@ -4,9 +4,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
-function NotificationItem({ data }) {
-  const { title, description, read } = data;
-  const { follower } = description;
+function NotificationItem({ title, description, read }) {
   return (
     <>
       <div className="notification__date-is-read">
@@ -18,10 +16,7 @@ function NotificationItem({ data }) {
         <div className="notification__date-content">
           <div className="notification__date-content-title">{title}</div>
           <div className="notification__date-content-description">
-            {follower
-              ? `${follower.name} has followed you. ${follower.name} can now invite you
-            to his/her wantToDo.`
-              : 'Error! The username is null.'}
+            {description}
           </div>
         </div>
       </div>

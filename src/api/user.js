@@ -24,3 +24,9 @@ export const fetchMe = async () => {
 
   return axiosResponse.data;
 };
+
+export const fetchAllUsers = async () => {
+  const axiosResponse = await axios.get(getRequestUrl('/api/viewUsers'));
+
+  return axiosResponse.data;
+};
