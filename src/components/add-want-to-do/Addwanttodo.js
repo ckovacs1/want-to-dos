@@ -1,4 +1,4 @@
-import { SettingsBluetoothSharp } from '@mui/icons-material';
+import { AddBoxSharp, SettingsBluetoothSharp } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -15,12 +15,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import './Addwanttodo.css';
 import { getUserFullname } from '../../utils/profile';
 import { postTodo } from '../../api/todo';
 import toast from 'react-hot-toast';
+import { fetchFollowers, fetchFollowing } from '../../api/follow';
+import { checkDataIsEmpty } from '../../utils/array';
 
 const ITEM_HEIGHT = 36;
 const ITEM_PADDING_TOP = 8;
@@ -39,51 +41,6 @@ const REPEAT_TYPE = {
   WEEKLY: 2,
   MONTHLY: 3,
 };
-
-const friends = [
-  {
-    _id: '1',
-    name: {
-      first: 'Van',
-      last: 'Henry',
-    },
-  },
-  {
-    _id: '2',
-    name: {
-      first: 'April',
-      last: 'Tucker',
-    },
-  },
-  {
-    _id: '3',
-    name: {
-      first: 'Ralph',
-      last: 'Hubbard',
-    },
-  },
-  {
-    _id: '4',
-    name: {
-      first: 'Omar',
-      last: 'Alexander',
-    },
-  },
-  {
-    _id: '5',
-    name: {
-      first: 'Omar',
-      last: 'Alexander',
-    },
-  },
-  {
-    _id: '6',
-    name: {
-      first: 'Omar',
-      last: 'Alexander',
-    },
-  },
-];
 
 function Addwanttodo({ fetchTodos }) {
   const [inputs, setInputs] = useState({
@@ -105,6 +62,24 @@ function Addwanttodo({ fetchTodos }) {
     category,
     inviteFriends,
   } = inputs;
+
+  // friends
+  const [friends, setFriends] = useState([]);
+
+  const getFriends = async () => {
+    const { followers } = await fetchFollowers();
+    const { following: followings } = await fetchFollowing();
+
+    const friends = followers.filter(follower =>
+      Boolean(followings.find(following => following._id === follower._id)),
+    );
+
+    setFriends(friends);
+  };
+
+  useEffect(() => {
+    getFriends();
+  }, []);
 
   //popup
   const [openPopup, setOpenPopup] = useState(false);
@@ -141,6 +116,7 @@ function Addwanttodo({ fetchTodos }) {
       repetition,
       repeatType,
       category,
+      inviteFriends,
     };
 
     try {
@@ -311,15 +287,21 @@ function Addwanttodo({ fetchTodos }) {
                 )}
                 MenuProps={MenuProps}
               >
-                {friends.map(friend => (
-                  <MenuItem
-                    key={friend._id}
-                    value={friend._id}
-                    // style={getStyles(name, personName, theme)}
-                  >
-                    {getUserFullname(friend.name)}
-                  </MenuItem>
-                ))}
+                {!checkDataIsEmpty(friends) ? (
+                  friends.map(friend => (
+                    <MenuItem
+                      key={friend._id}
+                      value={friend._id}
+                      // style={getStyles(name, personName, theme)}
+                    >
+                      {getUserFullname(friend.name)}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <Box sx={{ width: '100%', my: 1, textAlign: 'center' }}>
+                    No friends!
+                  </Box>
+                )}
               </Select>
             </FormControl>
           </div>
