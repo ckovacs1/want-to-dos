@@ -15,8 +15,8 @@ function ListByDate() {
 
   const fetchTodos = async () => {
     try {
-      const data = await fetchTodosDay();
-      setTodos(data);
+      const response = await fetchTodosDay();
+      setTodos(response.data);
     } catch (e) {
       // throw exception
       if (e.response.data.error === 'toDo not found') {
@@ -71,7 +71,7 @@ function ListByDate() {
         )}
       </div>
       <div className="listbydate__add-wrapper">
-        <Addwanttodo />
+        <Addwanttodo fetchTodos={fetchTodos} />
       </div>
     </div>
   );

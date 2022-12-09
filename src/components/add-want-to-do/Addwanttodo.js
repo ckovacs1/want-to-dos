@@ -85,13 +85,13 @@ const friends = [
   },
 ];
 
-function Addwanttodo() {
+function Addwanttodo({ fetchTodos }) {
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
-    startDateTime: dayjs('2022-11-01'),
-    repetition: '',
-    repeatType: null, //multiselect
+    startDateTime: dayjs(new Date()),
+    repetition: 1,
+    repeatType: REPEAT_TYPE.DAILY, //multiselect
     category: '', //select
     inviteFriends: [], //multi input and delete
   });
@@ -148,6 +148,7 @@ function Addwanttodo() {
       toast.success('Success to create');
 
       onPopupClose();
+      fetchTodos();
     } catch (e) {
       toast.error('Fail to success');
     }
