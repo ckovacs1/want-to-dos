@@ -136,21 +136,21 @@ function Addwanttodo({ fetchTodos }) {
   const createTodo = async () => {
     const data = {
       title,
-      description, // assume it's not required
+      description,
       startDateTime,
-      repetition, // how many times repeat, 0 is not repeat
-      repeatType, //daily = 1, weekly = 2, monthly = 3
+      repetition,
+      repeatType,
       category,
     };
 
     try {
       const response = await postTodo(data);
-      toast.success('Success to create');
+      toast.success('Successfully created a wantToDo!');
 
       onPopupClose();
       fetchTodos();
     } catch (e) {
-      toast.error('Fail to success');
+      toast.error('Failed to create a wantToDo. Try Again.');
     }
   };
 
