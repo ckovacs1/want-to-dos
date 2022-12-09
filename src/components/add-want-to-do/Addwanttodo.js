@@ -7,27 +7,89 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  OutlinedInput,
   Select,
   TextField,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useState } from 'react';
 import './Addwanttodo.css';
+import { getUserFullname } from '../../utils/profile';
 
-const DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+const ITEM_HEIGHT = 36;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      height: ITEM_HEIGHT * 3 + ITEM_PADDING_TOP,
+      width: 250,
+      overflow: 'scroll',
+    },
+  },
+};
+
+const REPEAT_TYPE = {
+  DAILY: 1,
+  WEEKLY: 2,
+  MONTHLY: 3,
+};
+
+const friends = [
+  {
+    _id: '1',
+    name: {
+      first: 'Van',
+      last: 'Henry',
+    },
+  },
+  {
+    _id: '2',
+    name: {
+      first: 'April',
+      last: 'Tucker',
+    },
+  },
+  {
+    _id: '3',
+    name: {
+      first: 'Ralph',
+      last: 'Hubbard',
+    },
+  },
+  {
+    _id: '4',
+    name: {
+      first: 'Omar',
+      last: 'Alexander',
+    },
+  },
+  {
+    _id: '5',
+    name: {
+      first: 'Omar',
+      last: 'Alexander',
+    },
+  },
+  {
+    _id: '6',
+    name: {
+      first: 'Omar',
+      last: 'Alexander',
+    },
+  },
+];
 
 function Addwanttodo() {
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
     startDateTime: dayjs('2022-11-01'),
-    endDateTime: dayjs('2022-11-01'),
-    repetition: '', //select
-    repeatOn: [], //multiselect
+    repetition: '',
+    repeatType: null, //multiselect
     category: '', //select
     inviteFriends: [], //multi input and delete
   });
@@ -36,9 +98,8 @@ function Addwanttodo() {
     title,
     description,
     startDateTime,
-    endDateTime,
     repetition,
-    repeatOn,
+    repeatType,
     category,
     inviteFriends,
   } = inputs;
@@ -54,27 +115,10 @@ function Addwanttodo() {
     setOpenPopup(false);
   };
 
-  //usestate for invitefriends
-  const [inviteFriendsInput, setInviteFriendsInput] = useState('');
-
   const onChangeInviteFriendsInput = e => {
-    setInviteFriendsInput(e.target.value);
-  };
-
-  const onKeydownInviteFriendsInput = e => {
-    if (e.key === 'Enter') {
-      setInputs({
-        ...inputs,
-        inviteFriends: [...inviteFriends, inviteFriendsInput],
-      });
-      setInviteFriendsInput('');
-    }
-  };
-
-  const onDeleteInviteFriend = target => {
     setInputs({
       ...inputs,
-      inviteFriends: inviteFriends.filter(friend => friend !== target),
+      inviteFriends: e.target.value,
     });
   };
 
@@ -84,22 +128,6 @@ function Addwanttodo() {
       ...inputs,
       [name]: value,
     });
-  };
-
-  const onClickRepeatOnButton = day => {
-    if (repeatOn.includes(day)) {
-      //delete from array
-      setInputs({
-        ...inputs,
-        repeatOn: repeatOn.filter(d => d !== day),
-      });
-    } else {
-      //add to array
-      setInputs({
-        ...inputs,
-        repeatOn: [...repeatOn, day],
-      });
-    }
   };
 
   return (
@@ -149,77 +177,52 @@ function Addwanttodo() {
             />
           </div>
           <div className="addwanttodo__input-wrapper">
-            <div className="addwanttodo__input-wrapper-inner">
-              <label className="addwanttodo__label">Starts on</label>
-              <LocalizationProvider
-                dateAdapter={AdapterDayjs}
-                className="addwanttodo__date-start-input"
-              >
-                <DateTimePicker
-                  renderInput={props => <TextField {...props} />}
-                  label="startDateTime"
-                  value={startDateTime}
-                  onChange={newValue => {
-                    setInputs({
-                      ...inputs,
-                      startDateTime: newValue,
-                    });
-                  }}
-                />
-              </LocalizationProvider>
-            </div>
-            <div className="addwanttodo__input-wrapper-inner">
-              <label className="addwanttodo__label">Ends on</label>
-              <LocalizationProvider
-                dateAdapter={AdapterDayjs}
-                className="addwanttodo__date-end-input"
-              >
-                <DateTimePicker
-                  renderInput={props => <TextField {...props} />}
-                  label="endDateTime"
-                  value={endDateTime}
-                  onChange={newValue => {
-                    setInputs({
-                      ...inputs,
-                      endDateTime: newValue,
-                    });
-                  }}
-                />
-              </LocalizationProvider>
-            </div>
+            <label className="addwanttodo__label">Starts on</label>
+            <LocalizationProvider
+              dateAdapter={AdapterDayjs}
+              className="addwanttodo__date-start-input"
+            >
+              <DatePicker
+                renderInput={props => <TextField {...props} />}
+                label="startDateTime"
+                value={startDateTime}
+                onChange={newValue => {
+                  setInputs({
+                    ...inputs,
+                    startDateTime: newValue,
+                  });
+                }}
+              />
+            </LocalizationProvider>
           </div>
-
           <div className="addwanttodo__input-wrapper">
             <label className="addwanttodo__label">Repetition</label>
-            <FormControl sx={{ width: '150px' }}>
-              <InputLabel id="repetition-select">Repetition</InputLabel>
-              <Select
-                labelId="repetition-select"
-                value={repetition}
-                label="Repetition"
-                name="repetition"
-                onChange={onChange}
-              >
-                <MenuItem value="weekly">Weekly</MenuItem>
-                <MenuItem value="monthly">Monthly</MenuItem>
-                <MenuItem value="yearly">Yearly</MenuItem>
-              </Select>
-            </FormControl>
+            <TextField
+              type="number"
+              name="repetition"
+              label="Repetition"
+              onChange={onChange}
+              value={repetition}
+              className="addwanttodo__title-input"
+              sx={{ width: '70%' }}
+            />
           </div>
           <div className="addwanttodo__input-wrapper">
-            <label className="addwanttodo__label">Repeat on</label>
-            <div className="addwanttodo__repeaton-buttons">
-              {DAYS.map(day => (
-                <Button
-                  variant={repeatOn.includes(day) ? 'contained' : 'outlined'}
-                  sx={{ mx: 0.5 }}
-                  onClick={() => onClickRepeatOnButton(day)}
-                  key={day}
-                >
-                  {day}
-                </Button>
-              ))}
-            </div>
+            <label className="addwanttodo__label">Repeat Type</label>
+            <FormControl sx={{ width: '150px' }}>
+              <InputLabel id="repetition-select">Repeat Type</InputLabel>
+              <Select
+                labelId="repetition-select"
+                value={repeatType}
+                label="Repeat Type"
+                name="repeatType"
+                onChange={onChange}
+              >
+                <MenuItem value={REPEAT_TYPE.DAILY}>Daily</MenuItem>
+                <MenuItem value={REPEAT_TYPE.WEEKLY}>Weekly</MenuItem>
+                <MenuItem value={REPEAT_TYPE.MONTHLY}>Monthly</MenuItem>
+              </Select>
+            </FormControl>
           </div>
           <div className="addwanttodo__input-wrapper">
             <label className="addwanttodo__label">Category</label>
@@ -243,24 +246,54 @@ function Addwanttodo() {
 
           <div className="addwanttodo__input-wrapper">
             <label className="addwanttodo__label">Invite Friends</label>
-            <TextField
-              type="text"
-              label="Invite Friends"
-              onChange={onChangeInviteFriendsInput}
-              onKeyDown={onKeydownInviteFriendsInput}
-              value={inviteFriendsInput}
-              sx={{ mr: 0.5 }}
-            />
-            {inviteFriends.map(friend => (
-              <Chip
-                key={friend}
-                label={friend}
-                variant="outlined"
-                onDelete={() => onDeleteInviteFriend(friend)}
-                sx={{ mx: 0.5 }}
-              />
-              //add validate id later
-            ))}
+            <FormControl sx={{ minWidth: '300px' }}>
+              <InputLabel
+                id="demo-multiple-chip-label"
+                className="addwanttodo__label"
+              >
+                Invite Friends
+              </InputLabel>
+              <Select
+                labelId="demo-multiple-chip-label"
+                id="demo-multiple-chip"
+                multiple
+                value={inviteFriends}
+                onChange={onChangeInviteFriendsInput}
+                input={
+                  <OutlinedInput
+                    id="select-multiple-chip"
+                    label="Chip"
+                  />
+                }
+                renderValue={selected => (
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    {selected.map(selectedId => {
+                      const selectedFriend = friends.find(
+                        friend => friend._id === selectedId,
+                      );
+
+                      return (
+                        <Chip
+                          key={selectedId}
+                          label={getUserFullname(selectedFriend.name)}
+                        />
+                      );
+                    })}
+                  </Box>
+                )}
+                MenuProps={MenuProps}
+              >
+                {friends.map(friend => (
+                  <MenuItem
+                    key={friend._id}
+                    value={friend._id}
+                    // style={getStyles(name, personName, theme)}
+                  >
+                    {getUserFullname(friend.name)}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
 
           <div className="addwanttodo__submit">
