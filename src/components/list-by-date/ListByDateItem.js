@@ -2,12 +2,15 @@ import React from 'react';
 import './ListByDateItem.css';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { IconButton } from '@mui/material';
 
-function ListByDateItem({ todo }) {
-  const { title, description, complete, category } = todo;
+function ListByDateItem({ todo, onClickComplete }) {
+  const { _id, title, description, complete, category } = todo;
   return (
     <>
-      {complete ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+      <IconButton onClick={() => onClickComplete(_id)}>
+        {complete ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+      </IconButton>
       <div className="listbydate__date-item-content">
         <div className="listbydate__date-content-left">
           <div className="listbydate__date-content-title">{title}</div>

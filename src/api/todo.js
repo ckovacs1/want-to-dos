@@ -17,3 +17,11 @@ export const postTodo = async data => {
 
   return axiosResponse.data;
 };
+
+export const completeTodo = async id => {
+  const axiosResponse = await axios.put(
+    getRequestUrl(`/api/todos/completetoDo/${id}`),
+  );
+
+  return axiosResponse.data;
+};

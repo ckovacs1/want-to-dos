@@ -1,7 +1,8 @@
 import { Box, Button, Typography } from '@mui/material';
 import { toBeEmpty } from '@testing-library/jest-dom/dist/matchers';
 import React, { useEffect, useState } from 'react';
-import { fetchTodosDay } from '../../api/todo';
+import toast from 'react-hot-toast';
+import { completeTodo, fetchTodosDay } from '../../api/todo';
 import { checkDataIsEmpty } from '../../utils/array';
 import { checkToday } from '../../utils/date';
 import Addwanttodo from '../add-want-to-do/Addwanttodo';
@@ -29,6 +30,24 @@ function ListByDate() {
     fetchTodos();
   }, []); // called when mounted
 
+  const setCompleteTodo = async id => {
+    try {
+      const response = await completeTodo(id);
+
+      setTodos(
+        todos.map(todo =>
+          todo._id === id ? { ...todo, complete: !todo.complete } : todo,
+        ),
+      );
+    } catch (e) {
+      toast.error('Error');
+    }
+  };
+
+  const onClickComplete = id => {
+    setCompleteTodo(id);
+  };
+
   const todayTodos = todos.filter(todo => checkToday(todo.startDateTime));
   const tomorrowTodos = todos.filter(todo => !checkToday(todo.startDateTime));
 
@@ -53,7 +72,10 @@ function ListByDate() {
           {checkDataIsEmpty(todayTodos) ? (
             <AlertInfo content="There is no wantToDo yet. How about adding a new wantToDo?" />
           ) : (
-            <ListByDateSection todos={todayTodos} />
+            <ListByDateSection
+              todos={todayTodos}
+              onClickComplete={onClickComplete}
+            />
           )}
         </div>
         {!checkDataIsEmpty(tomorrowTodos) && (

@@ -4,7 +4,7 @@ import NavBar from './components/nav-bar/nav-bar';
 import ProfilePage from './components/profile-page/user-profile';
 import { Notification } from './components/notification';
 import { Route, Routes } from 'react-router-dom';
-import LoginForm from './components/log-in/login-form';
+import LoginForm, { REMEMBER_ME_KEY } from './components/log-in/login-form';
 import Home from './components/home/home';
 import RegistrationForm from './components/log-in/registration-form';
 import { Addwanttodo } from './components/add-want-to-do';
@@ -13,6 +13,7 @@ import { AllFriends } from './components/all-friends';
 import { CalendarView } from './components/calendar-view';
 import { Toaster } from 'react-hot-toast';
 import setAuthToken from './utils/setAuthToken';
+import { fetchMe } from './api/user';
 
 const authInitialState = {
   isAuthenticated: false,
@@ -47,10 +48,24 @@ function authReducer(state, action) {
 function App() {
   const [authState, dispatch] = useReducer(authReducer, authInitialState);
 
-  useEffect(() => {
-    const token = localStorage.getItem('jwtToken');
+  const checkRememberMe = async () => {
+    // Check rememberMe
+    const rememberMe = localStorage.getItem(REMEMBER_ME_KEY) === 'true';
+    if (rememberMe) {
+      // Set token on axios
+      const token = localStorage.getItem('jwtToken');
+      setAuthToken(token);
 
-    setAuthToken(token);
+      // Get my user info
+      const { data: user } = await fetchMe();
+
+      dispatch({ type: 'AUTHENTICATED', user });
+    }
+  };
+
+  // Check rememberMe
+  useEffect(() => {
+    checkRememberMe();
   }, []);
 
   return (
