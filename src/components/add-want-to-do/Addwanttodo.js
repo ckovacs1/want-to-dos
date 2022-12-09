@@ -19,6 +19,8 @@ import React from 'react';
 import { useState } from 'react';
 import './Addwanttodo.css';
 import { getUserFullname } from '../../utils/profile';
+import { postTodo } from '../../api/todo';
+import toast from 'react-hot-toast';
 
 const ITEM_HEIGHT = 36;
 const ITEM_PADDING_TOP = 8;
@@ -128,6 +130,31 @@ function Addwanttodo() {
       ...inputs,
       [name]: value,
     });
+  };
+
+  // api
+  const createTodo = async () => {
+    const data = {
+      title,
+      description, // assume it's not required
+      startDateTime,
+      repetition, // how many times repeat, 0 is not repeat
+      repeatType, //daily = 1, weekly = 2, monthly = 3
+      category,
+    };
+
+    try {
+      const response = await postTodo(data);
+      toast.success('Success to create');
+
+      onPopupClose();
+    } catch (e) {
+      toast.error('Fail to success');
+    }
+  };
+
+  const onClickAdd = () => {
+    createTodo();
   };
 
   return (
@@ -299,7 +326,7 @@ function Addwanttodo() {
           <div className="addwanttodo__submit">
             <Button
               variant="contained"
-              onClick={() => {}}
+              onClick={onClickAdd}
             >
               {' '}
               Add{' '}
