@@ -23,6 +23,7 @@ import { postTodo } from '../../api/todo';
 import toast from 'react-hot-toast';
 import { fetchFollowers, fetchFollowing } from '../../api/follow';
 import { checkDataIsEmpty } from '../../utils/array';
+import { createInviteNotification } from '../../api/notification';
 
 const ITEM_HEIGHT = 36;
 const ITEM_PADDING_TOP = 8;
@@ -120,11 +121,18 @@ function Addwanttodo({ fetchTodos }) {
     };
 
     try {
-      const response = await postTodo(data);
-      toast.success('Successfully created a wantToDo!');
+      // create todo
+      await postTodo(data);
+
+      // create notification
+      for (let friendId of inviteFriends) {
+        await createInviteNotification(friendId);
+      }
 
       onPopupClose();
       fetchTodos();
+
+      toast.success('Successfully created a wantToDo!');
     } catch (e) {
       toast.error('Failed to create a wantToDo. Try Again.');
     }

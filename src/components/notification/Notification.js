@@ -2,9 +2,11 @@ import { Button, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { fetchFollowers } from '../../api/follow';
 import {
-  fetchNotifications,
-  updateNotificationToRead,
+  fetchFollowNotifications,
+  fetchInviteNotifications,
+  updateFollowNotificationToRead,
 } from '../../api/notification';
+import { fetchAllUsers } from '../../api/user';
 import { checkDataIsEmpty } from '../../utils/array';
 import { checkToday } from '../../utils/date';
 import Addwanttodo from '../add-want-to-do/Addwanttodo';
@@ -14,16 +16,17 @@ import './Notification.css';
 import NotificationSection from './NotificationSection';
 
 function Notification() {
-  const [notiData, setNotiData] = useState([]);
+  const [notiFollowData, setNotiFollowData] = useState([]);
+  const [notiInviteData, setNotiInviteData] = useState([]);
 
   // Update notifation
   const updateAllNotificationToRead = async ids => {
     for (let i = 0; i < ids.length; i++) {
       const id = ids[i];
-      await updateNotificationToRead(id);
+      await updateFollowNotificationToRead(id);
     }
 
-    setNotiData(notiData.map(noti => ({ ...noti, read: true })));
+    setNotiFollowData(notiFollowData.map(noti => ({ ...noti, read: true })));
   };
 
   const onClickAllReadButton = () => {
@@ -31,10 +34,10 @@ function Notification() {
   };
 
   // Fetching server data
-  const getNotifications = async () => {
+  const getFollowNotifications = async () => {
     try {
       const followers = await getFollowers();
-      const { data: notifications } = await fetchNotifications();
+      const { data: notifications } = await fetchFollowNotifications();
       console.log(`notification: ${notifications.length}`);
       for (let i = 0; i < notifications.length; i++) {
         const followerId = notifications[i].description.follower;
@@ -45,10 +48,10 @@ function Notification() {
         notifications[i].description.follower = follower;
       }
 
-      setNotiData(notifications || []);
+      setNotiFollowData(notifications || []);
     } catch (e) {
       if (e.response.data.error === 'Notification not found') {
-        setNotiData([]);
+        setNotiFollowData([]);
       }
     }
   };
@@ -59,16 +62,48 @@ function Notification() {
     return followers;
   };
 
+  const getInviteNotifications = async () => {
+    try {
+      const users = await getUsers();
+      const { data: notifications } = await fetchInviteNotifications();
+
+      for (let i = 0; i < notifications.length; i++) {
+        const invitedBy = notifications[i].description.invitedBy;
+        const inviteUser = users.find(user => user._id === invitedBy);
+
+        notifications[i].description.invitedBy = inviteUser;
+      }
+
+      setNotiInviteData(notifications || []);
+    } catch (e) {
+      if (e.response.data.error === 'Notification not found') {
+        setNotiInviteData([]);
+      }
+    }
+  };
+
+  const getUsers = async () => {
+    const { data } = await fetchAllUsers();
+    return data;
+  };
+
   useEffect(() => {
-    getNotifications();
+    getFollowNotifications();
+    getInviteNotifications();
   }, []); // called when mounted
 
-  console.log(`notiData: ${notiData}`);
   // Filter notifications
-  const todayNotifications = notiData.filter(noti =>
+  const todayFollowNotifications = notiFollowData.filter(noti =>
     checkToday(noti.description.date),
   );
-  const pastNotifications = notiData.filter(
+  const pastFollowNotifications = notiFollowData.filter(
+    noti => !checkToday(noti.description.date),
+  );
+
+  const todayInviteNotifications = notiInviteData.filter(noti =>
+    checkToday(noti.description.date),
+  );
+  const pastInviteNotifications = notiInviteData.filter(
     noti => !checkToday(noti.description.date),
   );
 
@@ -95,18 +130,26 @@ function Notification() {
           <div className="notification__date-header">
             <div className="notification__date-text">Today</div>
           </div>
-          {checkDataIsEmpty(todayNotifications) ? (
+          {checkDataIsEmpty(todayFollowNotifications) &&
+          checkDataIsEmpty(todayInviteNotifications) ? (
             <AlertInfo content="No notifications yet. We'll let you know if there's something new." />
           ) : (
-            <NotificationSection data={todayNotifications} />
+            <NotificationSection
+              followData={todayFollowNotifications}
+              inviteData={todayInviteNotifications}
+            />
           )}
         </div>
-        {!checkDataIsEmpty(pastNotifications) && (
+        {(!checkDataIsEmpty(pastFollowNotifications) ||
+          !checkDataIsEmpty(pastInviteNotifications)) && (
           <div className="notification__date-wrapper">
             <div className="notification__date-header">
               <div className="notification__date-text">Past</div>
             </div>
-            <NotificationSection data={pastNotifications} />
+            <NotificationSection
+              followData={pastFollowNotifications}
+              inviteData={pastInviteNotifications}
+            />
           </div>
         )}
       </div>
