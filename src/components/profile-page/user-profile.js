@@ -185,7 +185,7 @@ function ProfilePage() {
               fontSize: '22px',
             }}
           >
-            Friends
+            Following
           </Box>
           <Box
             sx={{

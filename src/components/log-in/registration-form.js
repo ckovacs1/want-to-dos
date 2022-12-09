@@ -107,11 +107,18 @@ function RegistrationForm() {
           }}
         >
           <TextField
-            label="Name"
+            label="First Name"
             variant="standard"
             name="name"
             onChange={onChange}
-            value={name}
+            value={name.first}
+          />
+          <TextField
+            label="Last Name"
+            variant="standard"
+            name="name"
+            onChange={onChange}
+            value={name.last}
           />
           <TextField
             label="Email"
