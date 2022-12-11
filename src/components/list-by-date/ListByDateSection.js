@@ -16,7 +16,10 @@ function ListByDateSection({
     <div className="listbydate__date-section">
       <ul className="listbydate__date-list">
         {todos.map(todo => (
-          <li className="listbydate__date-list-item">
+          <li
+            className="listbydate__date-list-item"
+            key={todo._id}
+          >
             <ListByDateItem
               todo={todo}
               onClickComplete={onClickComplete}

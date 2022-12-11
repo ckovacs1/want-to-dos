@@ -43,7 +43,6 @@ const REPEAT_TYPE = {
   MONTHLY: 3,
 };
 
-
 const initialInputs = {
   title: '',
   description: '',
@@ -52,7 +51,7 @@ const initialInputs = {
   repeatType: REPEAT_TYPE.DAILY, //multiselect
   category: '', //select
   inviteFriends: [], //multi input and delete
-}
+};
 
 function Addwanttodo({ fetchTodos }) {
   const [inputs, setInputs] = useState(initialInputs);
@@ -71,14 +70,16 @@ function Addwanttodo({ fetchTodos }) {
   const [friends, setFriends] = useState([]);
 
   const getFriends = async () => {
-    const { followers } = await fetchFollowers();
-    const { following: followings } = await fetchFollowing();
+    try {
+      const { followers } = await fetchFollowers();
+      const { following: followings } = await fetchFollowing();
 
-    const friends = followers.filter(follower =>
-      Boolean(followings.find(following => following._id === follower._id)),
-    );
+      const friends = followers.filter(follower =>
+        Boolean(followings.find(following => following._id === follower._id)),
+      );
 
-    setFriends(friends);
+      setFriends(friends);
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -135,7 +136,7 @@ function Addwanttodo({ fetchTodos }) {
       onPopupClose();
       fetchTodos();
 
-      setInputs(initialInputs)
+      setInputs(initialInputs);
       toast.success('Successfully created a wantToDo!');
     } catch (e) {
       toast.error('Failed to create a wantToDo. Try Again.');
