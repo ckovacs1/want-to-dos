@@ -52,6 +52,9 @@ function NavBar({ authState }) {
             <Link to="/notification">
               <Typography> Notification </Typography>
             </Link>
+            <Link to="/calendar">
+              <Typography> Calendar </Typography>
+            </Link>
           </Box>
         )}
       </Box>

@@ -138,6 +138,7 @@ function RegistrationForm() {
             name="password"
             onChange={onChange}
             value={password}
+            type="password"
           />
           <TextField
             label="Confirm Password"
@@ -145,6 +146,7 @@ function RegistrationForm() {
             name="password2"
             onChange={onChange}
             value={password2}
+            type="password"
           />
 
           {registerFail && (

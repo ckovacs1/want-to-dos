@@ -1,35 +1,53 @@
 import { useState } from 'react';
-import { Button, Box, TextField, Typography } from '@mui/material';
+import { Avatar, Button, Box, TextField, Typography } from '@mui/material';
 import MiniProfile from './mini-profile';
-import pfp from './i.png';
 import AddIcon from '@mui/icons-material/Add';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { fetchMe } from '../../api/user';
+import { getUsersTodos } from '../../api/todo';
 
 function ProfilePage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [bio, setBio] = useState('');
+  const [ name, setName ] = useState('');
+  const [ lastName, setLastName ] = useState('');
+  const [ email, setEmail ] = useState('');
 
-  const imgStyle = {
-    borderRadius: '50%',
-  };
+  const[ following, setFollowing ] = useState(0);
+  const[ followers, setFollowers ] = useState(0);
 
-  function getProfiles(inputName) {
-    axios.get('http://localhost:5000/profile').then(res => {
-      const users = res.data;
+  const [ tasks, setTasks ] = useState(0);
 
-      for (let i = 0; i < Object.keys(users.profiles).length; i++) {
-        if (users.profiles[i].name === inputName) {
-          setName(users.profiles[i].name);
-          setEmail(users.profiles[i].email);
-          setBio(users.profiles[i].bio);
-        }
-      }
-    });
+  function initialsProfilePic(name) {
+    return {
+      sx: {
+        bgcolor: '#143AA2',
+        width: '100px',
+        height: '100px',
+        fontSize: '40pt',
+        mt: '20px'
+      },
+      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    };
+  }
+  
+  const getLoggedInUser = async() => {
+    const { data } = await fetchMe();
+    setName(data.name.first);
+    setLastName(data.name.last);
+    setEmail(data.email);
+    setFollowing(data.following.length);
+    setFollowers(data.followers.length);
+    //console.log(data)
   }
 
-  getProfiles('Nicolas Latifi');
+  getLoggedInUser();
+
+  const getLoggedInUsersTodos = async() => {
+    const { data } = await getUsersTodos();
+    setTasks(data.length);
+
+  }
+  
+  getLoggedInUsersTodos();
 
   return (
     <Box
@@ -42,9 +60,10 @@ function ProfilePage() {
       <Box
         sx={{
           width: '60%',
-          height: '89vh',
+          height: '90vh',
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: 'column',
+          rowGap: '30px',
           alignContent: 'center',
           alignItems: 'center',
           justifyContent: 'center',
@@ -52,7 +71,7 @@ function ProfilePage() {
       >
         <Box
           sx={{
-            height: '75vh',
+            height: '50vh',
             borderRadius: '25px',
             width: '65%',
             display: 'flex',
@@ -65,6 +84,7 @@ function ProfilePage() {
             sx={{
               display: 'flex',
               flexDirection: 'column',
+              rowGap: '10px'
             }}
           >
             <Box
@@ -77,12 +97,7 @@ function ProfilePage() {
                 height: 'auto',
               }}
             >
-              <img
-                src={pfp}
-                alt={''}
-                style={imgStyle}
-                width={'250px'}
-              />
+              <Avatar {...initialsProfilePic(name + " " + lastName)} />
             </Box>
 
             <Box>
@@ -99,7 +114,7 @@ function ProfilePage() {
                     fontSize: '14pt',
                   }}
                 >
-                  {name}
+                  {name + " " + lastName}
                 </Typography>
 
                 <Typography
@@ -109,17 +124,6 @@ function ProfilePage() {
                 >
                   {email}
                 </Typography>
-              </Box>
-
-              <Box
-                sx={{
-                  width: '70%',
-                  marginLeft: '15%',
-                  marginTop: '25px',
-                  textAlign: 'center',
-                }}
-              >
-                <Typography>{bio}</Typography>
               </Box>
             </Box>
 
@@ -135,20 +139,65 @@ function ProfilePage() {
             >
               <Button variant="contained">Edit Profile</Button>
             </Box>
+
+            <Box
+            sx={{
+              display: 'flex',
+              marginTop: '10px',
+              justifyContent: 'center'
+            }}>
+              <Typography sx={{fontSize: '18pt'}}> Analytics</Typography>
+            </Box>
+
+            <Typography> Total Want to Dos: {tasks}</Typography>
+            <Typography> In Progress Want to Dos: </Typography>
+            <Typography> Completed Want to Dos: </Typography>
+
+
+          </Box>
+
+        </Box>
+
+        <Box
+          sx={{
+            height: '15vh',
+            borderRadius: '25px',
+            width: '65%',
+            display: 'flex',
+            flexDirection: 'column',
+            columnGap: '50px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#D3D4D7',
+          }}
+        >
+          <Typography> Find a Friend</Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+            }}
+          >
+            <TextField
+              variant="standard"
+              label="Friend's Email"
+            />
+            <AddIcon sx={{ mt: '15px' }} />
           </Box>
         </Box>
       </Box>
 
+
       <Box
         sx={{
           width: '60%',
-          height: '89vh',
+          height: '86vh',
           display: 'flex',
           flexDirection: 'column',
           alignContent: 'center',
           alignItems: 'center',
           justifyContent: 'center',
-          rowGap: '5%',
+          rowGap: '15px',
           ml: '-80px',
         }}
       >
@@ -157,18 +206,24 @@ function ProfilePage() {
             width: '65%',
             display: 'flex',
             flexDirection: 'column',
+            rowGap: '10px',
             justifyContent: 'center',
           }}
         >
+ 
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'row',
-              justifyContent: 'end',
               alignItems: 'center',
-              width: '100%',
+              justifyContent: 'center',
+              alignContent: 'center',
+              columnGap: '15px',
+              textAlign: 'center',
+              fontSize: '22px',
             }}
           >
+            Following ({following})
             <Link to="/all-friends">
               <Button
                 variant="contained"
@@ -177,16 +232,9 @@ function ProfilePage() {
                 View all
               </Button>
             </Link>
+
           </Box>
-          <Box
-            sx={{
-              my: 1,
-              textAlign: 'center',
-              fontSize: '22px',
-            }}
-          >
-            Following
-          </Box>
+          
           <Box
             sx={{
               height: '30vh',
@@ -218,32 +266,47 @@ function ProfilePage() {
               <MiniProfile />
             </Box>
           </Box>
-        </Box>
-        <Box
-          sx={{
-            height: '15vh',
-            borderRadius: '25px',
-            width: '65%',
-            display: 'flex',
-            flexDirection: 'column',
-            columnGap: '50px',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#D3D4D7',
-          }}
-        >
-          <Typography> Find a Friend</Typography>
+
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'row',
+              my: 1,
+              textAlign: 'center',
+              fontSize: '22px',
+              mt: '30px'
             }}
           >
-            <TextField
-              variant="standard"
-              label="Friend's Email"
-            />
-            <AddIcon sx={{ mt: '15px' }} />
+            Followers ({followers})
+          </Box>
+          <Box
+            sx={{
+              height: '30vh',
+              borderRadius: '25px',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              backgroundColor: '#D3D4D7',
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                overflow: 'hidden',
+                columnGap: '30px',
+                alignItems: 'center',
+              }}
+            >
+              <MiniProfile />
+              <MiniProfile />
+
+              <MiniProfile />
+              <MiniProfile />
+              <MiniProfile />
+              <MiniProfile />
+            </Box>
           </Box>
         </Box>
       </Box>
