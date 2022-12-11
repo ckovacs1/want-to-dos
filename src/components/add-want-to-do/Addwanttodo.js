@@ -24,6 +24,7 @@ import toast from 'react-hot-toast';
 import { fetchFollowers, fetchFollowing } from '../../api/follow';
 import { checkDataIsEmpty } from '../../utils/array';
 import { createInviteNotification } from '../../api/notification';
+import { CATEGORY } from '../../constants/category';
 
 const ITEM_HEIGHT = 36;
 const ITEM_PADDING_TOP = 8;
@@ -253,11 +254,14 @@ function Addwanttodo({ fetchTodos }) {
                 name="category"
                 onChange={onChange}
               >
-                <MenuItem value="fitness">Fitness</MenuItem>
-                <MenuItem value="nutrition/diet">Nutrition/Diet</MenuItem>
-                <MenuItem value="lifestyle">Lifestyle</MenuItem>
-                <MenuItem value="skills/learning">Skills/Learning</MenuItem>
-                <MenuItem value="mindfulness">Mindfulness</MenuItem>
+                {CATEGORY.map(({ value, label }) => (
+                  <MenuItem
+                    key={value}
+                    value={value}
+                  >
+                    {label}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </div>

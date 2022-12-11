@@ -5,6 +5,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { IconButton } from '@mui/material';
 import { removeTodo } from '../../api/todo';
+import CategoryChip from '../common/category-chip';
 
 function ListByDateItem({ todo, onClickComplete, onClickRemoveButton }) {
   const { _id, title, description, complete, category, repeatIdx, parentId } =
@@ -25,7 +26,9 @@ function ListByDateItem({ todo, onClickComplete, onClickRemoveButton }) {
           </div>
         </div>
         <div className="listbydate__date-content-right">
-          <div className="listbydate__date-content-category">{category}</div>
+          <div className="listbydate__date-content-category">
+            <CategoryChip category={category} />
+          </div>
         </div>
       </div>
       <IconButton
