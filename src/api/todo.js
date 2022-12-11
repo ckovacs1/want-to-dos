@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getRequestUrl } from './request';
 
-export const fetchTodosDay = async () => {
+export const getTodos = async () => {
   const axiosResponse = await axios.get(
     getRequestUrl('/api/todos/viewtoDosDay'),
   );
@@ -26,9 +26,7 @@ export const completeTodo = async id => {
   return axiosResponse.data;
 };
 
-export const getUsersTodos = async() => {
-  const axiosResponse = await axios.get(
-    getRequestUrl('/api/todos/viewtoDos')
-  );
-  return axiosResponse.data
-}
+export const getUsersTodos = async () => {
+  const axiosResponse = await axios.get(getRequestUrl('/api/todos/viewtoDos'));
+  return axiosResponse.data;
+};
