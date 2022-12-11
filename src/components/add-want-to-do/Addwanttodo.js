@@ -198,7 +198,8 @@ function Addwanttodo({ fetchTodos }) {
                 renderInput={props => <TextField {...props} />}
                 label="startDateTime"
                 value={startDateTime}
-                onChange={newValue => {
+                onChange={value => {
+                  const newValue = value.startOf('day');
                   setInputs({
                     ...inputs,
                     startDateTime: newValue,
