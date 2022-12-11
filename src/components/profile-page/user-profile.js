@@ -14,7 +14,9 @@ function ProfilePage() {
   const[ following, setFollowing ] = useState(0);
   const[ followers, setFollowers ] = useState(0);
 
-  const [ tasks, setTasks ] = useState(0);
+  const [ taskCount, setTaskCount ] = useState(0);
+  const [ completeTasksCount, setCompleteTasksCount ] = useState(0);
+  const [ inProgressTasksCount, setInProgressTasksCount] = useState(0);
 
   function initialsProfilePic(name) {
     return {
@@ -39,14 +41,24 @@ function ProfilePage() {
     //console.log(data)
   }
 
-  getLoggedInUser();
-
   const getLoggedInUsersTodos = async() => {
     const { data } = await getUsersTodos();
-    setTasks(data.length);
-
+    setTaskCount(data.length);
+    
+    let completed = 0;
+    let inProgress = 0;
+    data.forEach((task) =>{
+      if(task.complete){
+        completed++;
+      } else {
+        inProgress++;
+      }
+    })
+    setCompleteTasksCount(completed);
+    setInProgressTasksCount(inProgress);
   }
-  
+
+  getLoggedInUser();
   getLoggedInUsersTodos();
 
   return (
@@ -78,13 +90,14 @@ function ProfilePage() {
             flexDirection: 'row',
             justifyContent: 'center',
             backgroundColor: '#D3D4D7',
+            overflow: 'auto'
           }}
         >
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              rowGap: '10px'
+              rowGap: '10px',
             }}
           >
             <Box
@@ -149,9 +162,9 @@ function ProfilePage() {
               <Typography sx={{fontSize: '18pt'}}> Analytics</Typography>
             </Box>
 
-            <Typography> Total Want to Dos: {tasks}</Typography>
-            <Typography> In Progress Want to Dos: </Typography>
-            <Typography> Completed Want to Dos: </Typography>
+            <Typography> Total Want to Dos: {taskCount}</Typography>
+            <Typography> In Progress Want to Dos: {inProgressTasksCount}</Typography>
+            <Typography> Completed Want to Dos: {completeTasksCount} </Typography>
 
 
           </Box>
