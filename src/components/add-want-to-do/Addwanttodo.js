@@ -43,16 +43,19 @@ const REPEAT_TYPE = {
   MONTHLY: 3,
 };
 
+
+const initialInputs = {
+  title: '',
+  description: '',
+  startDateTime: dayjs(new Date()),
+  repetition: 1,
+  repeatType: REPEAT_TYPE.DAILY, //multiselect
+  category: '', //select
+  inviteFriends: [], //multi input and delete
+}
+
 function Addwanttodo({ fetchTodos }) {
-  const [inputs, setInputs] = useState({
-    title: '',
-    description: '',
-    startDateTime: dayjs(new Date()),
-    repetition: 1,
-    repeatType: REPEAT_TYPE.DAILY, //multiselect
-    category: '', //select
-    inviteFriends: [], //multi input and delete
-  });
+  const [inputs, setInputs] = useState(initialInputs);
 
   const {
     title,
@@ -132,6 +135,7 @@ function Addwanttodo({ fetchTodos }) {
       onPopupClose();
       fetchTodos();
 
+      setInputs(initialInputs)
       toast.success('Successfully created a wantToDo!');
     } catch (e) {
       toast.error('Failed to create a wantToDo. Try Again.');
@@ -198,7 +202,8 @@ function Addwanttodo({ fetchTodos }) {
                 renderInput={props => <TextField {...props} />}
                 label="startDateTime"
                 value={startDateTime}
-                onChange={newValue => {
+                onChange={value => {
+                  const newValue = value.startOf('day');
                   setInputs({
                     ...inputs,
                     startDateTime: newValue,

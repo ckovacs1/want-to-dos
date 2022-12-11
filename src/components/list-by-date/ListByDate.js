@@ -2,9 +2,9 @@ import { Box, Button, Typography } from '@mui/material';
 import { toBeEmpty } from '@testing-library/jest-dom/dist/matchers';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { completeTodo, fetchTodosDay } from '../../api/todo';
+import { completeTodo, getTodos } from '../../api/todo';
 import { checkDataIsEmpty } from '../../utils/array';
-import { checkToday } from '../../utils/date';
+import { checkToday, checkTomorrow } from '../../utils/date';
 import Addwanttodo from '../add-want-to-do/Addwanttodo';
 import AlertInfo from '../common/alert-info';
 import './ListByDate.css';
@@ -16,7 +16,7 @@ function ListByDate() {
 
   const fetchTodos = async () => {
     try {
-      const response = await fetchTodosDay();
+      const response = await getTodos();
       setTodos(response.data);
     } catch (e) {
       // throw exception
@@ -49,7 +49,7 @@ function ListByDate() {
   };
 
   const todayTodos = todos.filter(todo => checkToday(todo.startDateTime));
-  const tomorrowTodos = todos.filter(todo => !checkToday(todo.startDateTime));
+  const tomorrowTodos = todos.filter(todo => checkTomorrow(todo.startDateTime));
 
   return (
     <div className="listbydate__container">
