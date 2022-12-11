@@ -20,3 +20,15 @@ export const checkTomorrow = datetime => {
   tomorrowDate.setDate(tomorrowDate.getDate() + 1);
   return targetDate.setHours(0, 0, 0, 0) === tomorrowDate.setHours(0, 0, 0, 0);
 };
+
+/**
+ * Check datetime is selected date
+ * @param {string} targetDatetime
+ * @param {string} selectedDatetime
+ * @return {boolean}
+ */
+export const checkSelectedDate = (targetDatetime, selectedDatetime) => {
+  const targetDate = new Date(targetDatetime);
+  const wantedwDate = new Date(selectedDatetime);
+  return targetDate.setHours(0, 0, 0, 0) === wantedwDate.setHours(0, 0, 0, 0);
+};
