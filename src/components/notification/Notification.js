@@ -117,13 +117,6 @@ function Notification() {
           >
             Notifications
           </Typography>
-
-          <Button
-            variant="contained"
-            onClick={onClickAllReadButton}
-          >
-            Mark all as read
-          </Button>
         </div>
 
         <div className="notification__date-wrapper">
