@@ -2,7 +2,12 @@ import React from 'react';
 import ListByDateItem from './ListByDateItem';
 import './ListByDateSection.css';
 
-function ListByDateSection({ todos, onClickComplete, sortByComplete = false }) {
+function ListByDateSection({
+  todos,
+  onClickComplete,
+  onClickRemoveButton,
+  sortByComplete = false,
+}) {
   if (sortByComplete) {
     todos.sort((a, b) => Number(a.complete) - Number(b.complete));
   }
@@ -15,6 +20,7 @@ function ListByDateSection({ todos, onClickComplete, sortByComplete = false }) {
             <ListByDateItem
               todo={todo}
               onClickComplete={onClickComplete}
+              onClickRemoveButton={onClickRemoveButton}
             />
           </li>
         ))}

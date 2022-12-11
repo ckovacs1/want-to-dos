@@ -12,7 +12,8 @@ import { checkSelectedDate } from '../../utils/date';
 function CalendarView() {
   const [date, setDate] = useState(new Date());
 
-  const { todos, fetchTodos, onClickComplete } = useTodos();
+  const { todos, fetchTodos, onClickComplete, onClickRemoveButton } =
+    useTodos();
 
   const onChange = date => {
     setDate(date);
@@ -72,6 +73,7 @@ function CalendarView() {
               <ListByDateSection
                 todos={selectedTodos}
                 onClickComplete={onClickComplete}
+                onClickRemoveButton={onClickRemoveButton}
                 sortByComplete
               />
             )}

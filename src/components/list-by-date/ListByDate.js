@@ -13,7 +13,8 @@ import './ListByDate.css';
 import ListByDateSection from './ListByDateSection';
 
 function ListByDate() {
-  const { todos, fetchTodos, onClickComplete } = useTodos();
+  const { todos, fetchTodos, onClickComplete, onClickRemoveButton } =
+    useTodos();
 
   const todayTodos = todos.filter(todo => checkToday(todo.startDateTime));
   const tomorrowTodos = todos.filter(todo => checkTomorrow(todo.startDateTime));
@@ -42,6 +43,8 @@ function ListByDate() {
             <ListByDateSection
               todos={todayTodos}
               onClickComplete={onClickComplete}
+              onClickRemoveButton={onClickRemoveButton}
+              sortByComplete
             />
           )}
         </div>
@@ -58,6 +61,8 @@ function ListByDate() {
             <ListByDateSection
               todos={tomorrowTodos}
               onClickComplete={onClickComplete}
+              onClickRemoveButton={onClickRemoveButton}
+              sortByComplete
             />
           </div>
         )}

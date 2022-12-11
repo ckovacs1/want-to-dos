@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { completeTodo, getTodos } from '../api/todo';
+import { completeTodo, getTodos, deleteTodo } from '../api/todo';
 
 const useTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -42,7 +42,21 @@ const useTodos = () => {
     setCompleteTodo(id, repeatIdx);
   };
 
-  return { todos, fetchTodos, onClickComplete };
+  const removeTodo = async id => {
+    try {
+      const response = await deleteTodo(id);
+
+      fetchTodos();
+    } catch (e) {
+      toast.error('Error');
+    }
+  };
+
+  const onClickRemoveButton = id => {
+    removeTodo(id);
+  };
+
+  return { todos, fetchTodos, onClickComplete, onClickRemoveButton };
 };
 
 export default useTodos;

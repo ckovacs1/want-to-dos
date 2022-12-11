@@ -31,3 +31,11 @@ export const getUsersTodos = async () => {
   const axiosResponse = await axios.get(getRequestUrl('/api/todos/viewtoDos'));
   return axiosResponse.data;
 };
+
+export const deleteTodo = async id => {
+  const axiosResponse = await axios.delete(
+    getRequestUrl(`/api/todos/deletetoDos/${id}`),
+  );
+
+  return axiosResponse.data;
+};
