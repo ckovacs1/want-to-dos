@@ -3,38 +3,84 @@ import Calendar from 'react-calendar';
 import { Box, Typography } from '@mui/material';
 import 'react-calendar/dist/Calendar.css';
 import Addwanttodo from '../add-want-to-do/Addwanttodo';
+import { checkDataIsEmpty } from '../../utils/array';
+import AlertInfo from '../common/alert-info';
+import ListByDateSection from '../list-by-date/ListByDateSection';
+import useTodos from '../../hook/useTodos';
+import { checkSelectedDate } from '../../utils/date';
 
+function CalendarView() {
+  const [date, setDate] = useState(new Date());
 
-function CalendarView(){
+  const { todos, fetchTodos, onClickComplete } = useTodos();
 
-    const [ date, setDate ] = useState(new Date());
+  const onChange = date => {
+    setDate(date);
+  };
 
-    const onChange = date => {
-        setDate(date);
-    }
-  
-    return(
-        <Box>
-            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '15px'}}>
-                
-                <Typography sx={{fontSize: '22pt', color:'#143aa2'}}> Calendar</Typography>
-                <Calendar onChange={onChange} value={date} />
-                <Typography sx={{color:'#143aa2', fontSize: '14pt'}}> Want-To-Dos for {date.getMonth()+1}/{date.getDate()}/{date.getFullYear()} </Typography>
-                
-                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}> 
-                    <Box sx={{width: '800px'}}>
-                        
-                    </Box>
-                    <Box>
-                        <Addwanttodo />
-                    </Box>
-                </Box>
-        
-            </Box>
-           
+  const selectedTodos = todos.filter(todo =>
+    checkSelectedDate(todo.startDateTime, date.toString()),
+  );
+
+  return (
+    <Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          columnGap: '15px',
+          mt: 4,
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            rowGap: '15px',
+          }}
+        >
+          <Typography sx={{ fontSize: '22pt', color: '#143aa2' }}>
+            {' '}
+            Calendar
+          </Typography>
+          <Calendar
+            onChange={onChange}
+            value={date}
+          />
         </Box>
-    )
 
+        <Box
+          sx={{
+            width: '500px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Typography sx={{ color: '#143aa2', fontSize: '14pt', pb: 1 }}>
+            Want-To-Dos for {date.getMonth() + 1}/{date.getDate()}/
+            {date.getFullYear()}{' '}
+          </Typography>
+          <Box sx={{ width: '100%' }}>
+            {checkDataIsEmpty(selectedTodos) ? (
+              <AlertInfo content="There is no wantToDo yet. How about adding a new wantToDo?" />
+            ) : (
+              <ListByDateSection
+                todos={selectedTodos}
+                onClickComplete={onClickComplete}
+              />
+            )}
+          </Box>
+          <Box>
+            <Addwanttodo fetchTodos={fetchTodos} />
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
 }
 
 export default CalendarView;
