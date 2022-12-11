@@ -1,5 +1,7 @@
 .listbydate__date-section {
   margin-top: 8px;
+  height: 330px;
+  overflow: scroll;
 }
 
 .listbydate__date-list {

@@ -29,9 +29,8 @@ function CalendarView() {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'center',
-          alignItems: 'center',
           columnGap: '15px',
-          mt: 4,
+          mt: 2,
         }}
       >
         <Box
@@ -40,6 +39,7 @@ function CalendarView() {
             flexDirection: 'column',
             alignItems: 'center',
             rowGap: '15px',
+            pt: 6,
           }}
         >
           <Typography sx={{ fontSize: '22pt', color: '#143aa2' }}>
@@ -58,19 +58,21 @@ function CalendarView() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            pt: 4,
           }}
         >
           <Typography sx={{ color: '#143aa2', fontSize: '14pt', pb: 1 }}>
             Want-To-Dos for {date.getMonth() + 1}/{date.getDate()}/
             {date.getFullYear()}{' '}
           </Typography>
-          <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: '100%', mb: 2 }}>
             {checkDataIsEmpty(selectedTodos) ? (
               <AlertInfo content="There is no wantToDo yet. How about adding a new wantToDo?" />
             ) : (
               <ListByDateSection
                 todos={selectedTodos}
                 onClickComplete={onClickComplete}
+                sortByComplete
               />
             )}
           </Box>
