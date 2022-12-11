@@ -25,3 +25,10 @@ export const completeTodo = async id => {
 
   return axiosResponse.data;
 };
+
+export const getUsersTodos = async() => {
+  const axiosResponse = await axios.get(
+    getRequestUrl('/api/todos/viewtoDos')
+  );
+  return axiosResponse.data
+}
