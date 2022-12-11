@@ -30,13 +30,16 @@ function ListByDate() {
     fetchTodos();
   }, []); // called when mounted
 
-  const setCompleteTodo = async id => {
+  const setCompleteTodo = async (id, repeatIdx) => {
     try {
-      const response = await completeTodo(id);
+      const data = { repeatIdx };
+      const response = await completeTodo(id, data);
 
       setTodos(
         todos.map(todo =>
-          todo._id === id ? { ...todo, complete: !todo.complete } : todo,
+          todo._id === id && todo.repeatIdx === repeatIdx
+            ? { ...todo, complete: !todo.complete }
+            : todo,
         ),
       );
     } catch (e) {
@@ -44,8 +47,8 @@ function ListByDate() {
     }
   };
 
-  const onClickComplete = id => {
-    setCompleteTodo(id);
+  const onClickComplete = (id, repeatIdx = null) => {
+    setCompleteTodo(id, repeatIdx);
   };
 
   const todayTodos = todos.filter(todo => checkToday(todo.startDateTime));
@@ -88,7 +91,10 @@ function ListByDate() {
                 Tomorrow
               </Typography>
             </div>
-            <ListByDateSection todos={tomorrowTodos} />
+            <ListByDateSection
+              todos={tomorrowTodos}
+              onClickComplete={onClickComplete}
+            />
           </div>
         )}
       </div>

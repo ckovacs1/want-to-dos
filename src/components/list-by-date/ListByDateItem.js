@@ -5,10 +5,10 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { IconButton } from '@mui/material';
 
 function ListByDateItem({ todo, onClickComplete }) {
-  const { _id, title, description, complete, category } = todo;
+  const { _id, title, description, complete, category, repeatIdx } = todo;
   return (
     <>
-      <IconButton onClick={() => onClickComplete(_id)}>
+      <IconButton onClick={() => onClickComplete(_id, repeatIdx)}>
         {complete ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
       </IconButton>
       <div className="listbydate__date-item-content">
