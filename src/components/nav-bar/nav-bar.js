@@ -43,17 +43,17 @@ function NavBar({ authState }) {
               color: '#143AA2',
             }}
           >
+            <Link to="/calendar">
+              <Typography> Calendar </Typography>
+            </Link>
             <Link to="/list-by-date">
               <Typography> List </Typography>
-            </Link>
-            <Link to="/profile">
-              <Typography> Profile </Typography>
             </Link>
             <Link to="/notification">
               <Typography> Notification </Typography>
             </Link>
-            <Link to="/calendar">
-              <Typography> Calendar </Typography>
+            <Link to="/profile">
+              <Typography> Profile </Typography>
             </Link>
           </Box>
         )}

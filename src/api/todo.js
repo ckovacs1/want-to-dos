@@ -18,9 +18,10 @@ export const postTodo = async data => {
   return axiosResponse.data;
 };
 
-export const completeTodo = async id => {
+export const completeTodo = async (id, data) => {
   const axiosResponse = await axios.put(
     getRequestUrl(`/api/todos/completetoDo/${id}`),
+    data,
   );
 
   return axiosResponse.data;
@@ -28,5 +29,13 @@ export const completeTodo = async id => {
 
 export const getUsersTodos = async () => {
   const axiosResponse = await axios.get(getRequestUrl('/api/todos/viewtoDos'));
+  return axiosResponse.data;
+};
+
+export const deleteTodo = async id => {
+  const axiosResponse = await axios.delete(
+    getRequestUrl(`/api/todos/deletetoDos/${id}`),
+  );
+
   return axiosResponse.data;
 };
