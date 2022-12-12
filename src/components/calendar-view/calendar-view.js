@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import { Box, Typography } from '@mui/material';
 import 'react-calendar/dist/Calendar.css';
+import './cal.css';
 import Addwanttodo from '../add-want-to-do/Addwanttodo';
 import { checkDataIsEmpty } from '../../utils/array';
 import AlertInfo from '../common/alert-info';
@@ -48,6 +49,7 @@ function CalendarView() {
             Calendar
           </Typography>
           <Calendar
+            className="react-calendar"
             onChange={onChange}
             value={date}
           />
