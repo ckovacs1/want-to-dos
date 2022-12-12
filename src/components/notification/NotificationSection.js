@@ -3,6 +3,7 @@ import { getUserFullname } from '../../utils/profile';
 import NotificationItem from './NotificationItem';
 import './NotificationSection.css';
 
+//refer to this part for error
 function NotificationSection({ followData, inviteData }) {
   return (
     <div className="notification__date-section">
@@ -11,8 +12,11 @@ function NotificationSection({ followData, inviteData }) {
           const { title, description: descriptionObj, read } = item;
           const { follower } = descriptionObj;
           const description = follower
-            ? `${follower.name} has followed you. ${follower.name} can now invite you
-          to his/her wantToDo.`
+            ? `${getUserFullname(
+                follower.name,
+              )} has followed you. ${getUserFullname(
+                follower.name,
+              )} can now invite you to his/her wantToDo.`
             : 'Error! The username is null.';
 
           return (
