@@ -3,8 +3,8 @@ import { Avatar, Button, Box, TextField, Typography } from '@mui/material';
 import MiniProfile from './mini-profile';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import { fetchMe } from '../../api/user';
 import { getUsersTodos } from '../../api/todo';
+import { fetchMe, followById, getUserIdFromEmail, checkFollowing } from '../../api/user';
 
 function ProfilePage() {
   const [ name, setName ] = useState('');
@@ -14,7 +14,13 @@ function ProfilePage() {
   const[ following, setFollowing ] = useState(0);
   const[ followers, setFollowers ] = useState(0);
 
-  const [ tasks, setTasks ] = useState(0);
+  const [ taskCount, setTaskCount ] = useState(0);
+  const [ completeTasksCount, setCompleteTasksCount ] = useState(0);
+  const [ inProgressTasksCount, setInProgressTasksCount] = useState(0);
+
+  const [ followEmail, setFollowEmail ] = useState('');
+
+  const [ followId, setFollowId ] = useState('');
 
   function initialsProfilePic(name) {
     return {
@@ -30,7 +36,8 @@ function ProfilePage() {
   }
   
   const getLoggedInUser = async() => {
-    const { data } = await fetchMe();
+    const {data}  = await fetchMe();
+    
     setName(data.name.first);
     setLastName(data.name.last);
     setEmail(data.email);
@@ -39,15 +46,47 @@ function ProfilePage() {
     //console.log(data)
   }
 
-  getLoggedInUser();
-
   const getLoggedInUsersTodos = async() => {
     const { data } = await getUsersTodos();
-    setTasks(data.length);
-
+    setTaskCount(data.length);
+    
+    let completed = 0;
+    let inProgress = 0;
+    data.forEach((task) =>{
+      if(task.complete){
+        completed++;
+      } else {
+        inProgress++;
+      }
+    })
+    setCompleteTasksCount(completed);
+    setInProgressTasksCount(inProgress);
   }
-  
+
+  getLoggedInUser();
   getLoggedInUsersTodos();
+
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+
+    if (followEmail){
+      
+      const data = getUserIdFromEmail(followEmail);
+      data.then((message) => {
+
+        const follow = followById(message.user._id);
+        follow.then((message)=> {
+          console.log(message)
+        }).catch((message) => {
+          console.log(message)
+        })
+
+      }).catch((message) => {
+        console.log("error from getUserIdFromEmail");
+      })
+
+    }
+  }
 
   return (
     <Box
@@ -78,6 +117,7 @@ function ProfilePage() {
             flexDirection: 'row',
             justifyContent: 'center',
             backgroundColor: '#D3D4D7',
+            overflow: 'auto'
           }}
         >
           <Box
@@ -149,9 +189,9 @@ function ProfilePage() {
               <Typography sx={{fontSize: '18pt'}}> Analytics</Typography>
             </Box>
 
-            <Typography> Total Want to Dos: {tasks}</Typography>
-            <Typography> In Progress Want to Dos: </Typography>
-            <Typography> Completed Want to Dos: </Typography>
+            <Typography> Total Want to Dos: {taskCount}</Typography>
+            <Typography> In Progress Want to Dos: {inProgressTasksCount}</Typography>
+            <Typography> Completed Want to Dos: {completeTasksCount}</Typography>
 
 
           </Box>
@@ -178,11 +218,18 @@ function ProfilePage() {
               flexDirection: 'row',
             }}
           >
-            <TextField
-              variant="standard"
-              label="Friend's Email"
-            />
-            <AddIcon sx={{ mt: '15px' }} />
+            <form noValidate autoComplete="off" onSubmit={handleEmailSubmit}>
+              <TextField
+                variant="standard"
+                label="Friend's Email"
+                onChange={(e) => setFollowEmail(e.target.value)}
+              />
+              <Button
+                type="submit"
+              >
+                <AddIcon sx={{ mt: '10px' }} />
+              </Button>
+            </form>
           </Box>
         </Box>
       </Box>
