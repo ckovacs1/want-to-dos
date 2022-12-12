@@ -3,6 +3,7 @@ import { getUserFullname } from '../../utils/profile';
 import NotificationItem from './NotificationItem';
 import './NotificationSection.css';
 
+//refer to this part for error
 function NotificationSection({ followData, inviteData }) {
   return (
     <div className="notification__date-section">
