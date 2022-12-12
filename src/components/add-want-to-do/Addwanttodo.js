@@ -188,6 +188,7 @@ function Addwanttodo({ fetchTodos }) {
               type="text"
               name="description"
               label="Description"
+              maxlength="20"
               onChange={onChange}
               value={description}
               className="addwanttodo__description-input"
