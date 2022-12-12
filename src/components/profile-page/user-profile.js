@@ -3,7 +3,7 @@ import { Avatar, Button, Box, TextField, Typography } from '@mui/material';
 import MiniProfile from './mini-profile';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import { fetchMe } from '../../api/user';
+import { fetchMe, followById, getUserIdFromEmail, checkFollowing } from '../../api/user';
 import { getUsersTodos } from '../../api/todo';
 
 function ProfilePage() {
@@ -17,6 +17,10 @@ function ProfilePage() {
   const [ taskCount, setTaskCount ] = useState(0);
   const [ completeTasksCount, setCompleteTasksCount ] = useState(0);
   const [ inProgressTasksCount, setInProgressTasksCount] = useState(0);
+
+  const [ followEmail, setFollowEmail ] = useState('');
+
+  const [ followId, setFollowId ] = useState('');
 
   function initialsProfilePic(name) {
     return {
@@ -32,7 +36,8 @@ function ProfilePage() {
   }
   
   const getLoggedInUser = async() => {
-    const { data } = await fetchMe();
+    const {data}  = await fetchMe();
+    
     setName(data.name.first);
     setLastName(data.name.last);
     setEmail(data.email);
@@ -60,6 +65,28 @@ function ProfilePage() {
 
   getLoggedInUser();
   getLoggedInUsersTodos();
+
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+
+    if (followEmail){
+      
+      const data = getUserIdFromEmail(followEmail);
+      data.then((message) => {
+
+        const follow = followById(message.user._id);
+        follow.then((message)=> {
+          console.log(message)
+        }).catch((message) => {
+          console.log(message)
+        })
+
+      }).catch((message) => {
+        console.log("error from getUserIdFromEmail");
+      })
+
+    }
+  }
 
   return (
     <Box
@@ -140,18 +167,6 @@ function ProfilePage() {
               </Box>
             </Box>
 
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                alignContent: 'center',
-                mt: '5%',
-              }}
-            >
-              <Button variant="contained">Edit Profile</Button>
-            </Box>
 
             <Box
             sx={{
@@ -184,18 +199,26 @@ function ProfilePage() {
             backgroundColor: '#D3D4D7',
           }}
         >
-          <Typography> Find a Friend</Typography>
+          <Typography> Follow a Friend</Typography>
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'row',
             }}
           >
-            <TextField
-              variant="standard"
-              label="Friend's Email"
-            />
-            <AddIcon sx={{ mt: '15px' }} />
+            <form noValidate autoComplete="off" onSubmit={handleEmailSubmit}>
+              <TextField
+                variant="standard"
+                label="Friend's Email"
+                onChange={(e) => setFollowEmail(e.target.value)}
+              />
+              <Button
+                type="submit"
+              >
+                <AddIcon sx={{ mt: '10px' }} />
+              </Button>
+            </form>
+
           </Box>
         </Box>
       </Box>

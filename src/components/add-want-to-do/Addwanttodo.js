@@ -24,6 +24,7 @@ import toast from 'react-hot-toast';
 import { fetchFollowers, fetchFollowing } from '../../api/follow';
 import { checkDataIsEmpty } from '../../utils/array';
 import { createInviteNotification } from '../../api/notification';
+import { CATEGORY } from '../../constants/category';
 
 const ITEM_HEIGHT = 36;
 const ITEM_PADDING_TOP = 8;
@@ -43,16 +44,18 @@ const REPEAT_TYPE = {
   MONTHLY: 3,
 };
 
+const initialInputs = {
+  title: '',
+  description: '',
+  startDateTime: dayjs(new Date()),
+  repetition: 1,
+  repeatType: REPEAT_TYPE.DAILY, //multiselect
+  category: '', //select
+  inviteFriends: [], //multi input and delete
+};
+
 function Addwanttodo({ fetchTodos }) {
-  const [inputs, setInputs] = useState({
-    title: '',
-    description: '',
-    startDateTime: dayjs(new Date()),
-    repetition: 1,
-    repeatType: REPEAT_TYPE.DAILY, //multiselect
-    category: '', //select
-    inviteFriends: [], //multi input and delete
-  });
+  const [inputs, setInputs] = useState(initialInputs);
 
   const {
     title,
@@ -68,14 +71,16 @@ function Addwanttodo({ fetchTodos }) {
   const [friends, setFriends] = useState([]);
 
   const getFriends = async () => {
-    const { followers } = await fetchFollowers();
-    const { following: followings } = await fetchFollowing();
+    try {
+      const { followers } = await fetchFollowers();
+      const { following: followings } = await fetchFollowing();
 
-    const friends = followers.filter(follower =>
-      Boolean(followings.find(following => following._id === follower._id)),
-    );
+      const friends = followers.filter(follower =>
+        Boolean(followings.find(following => following._id === follower._id)),
+      );
 
-    setFriends(friends);
+      setFriends(friends);
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -132,6 +137,7 @@ function Addwanttodo({ fetchTodos }) {
       onPopupClose();
       fetchTodos();
 
+      setInputs(initialInputs);
       toast.success('Successfully created a wantToDo!');
     } catch (e) {
       toast.error('Failed to create a wantToDo. Try Again.');
@@ -198,7 +204,8 @@ function Addwanttodo({ fetchTodos }) {
                 renderInput={props => <TextField {...props} />}
                 label="startDateTime"
                 value={startDateTime}
-                onChange={newValue => {
+                onChange={value => {
+                  const newValue = value.startOf('day');
                   setInputs({
                     ...inputs,
                     startDateTime: newValue,
@@ -247,11 +254,14 @@ function Addwanttodo({ fetchTodos }) {
                 name="category"
                 onChange={onChange}
               >
-                <MenuItem value="fitness">Fitness</MenuItem>
-                <MenuItem value="nutrition/diet">Nutrition/Diet</MenuItem>
-                <MenuItem value="lifestyle">Lifestyle</MenuItem>
-                <MenuItem value="skills/learning">Skills/Learning</MenuItem>
-                <MenuItem value="mindfulness">Mindfulness</MenuItem>
+                {CATEGORY.map(({ value, label }) => (
+                  <MenuItem
+                    key={value}
+                    value={value}
+                  >
+                    {label}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </div>
