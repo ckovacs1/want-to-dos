@@ -9,7 +9,7 @@ import {
   followById,
   getUserIdFromEmail,
   checkFollowing,
-  GetFollowing
+  getFollowing
 } from '../../api/user';
 
 import { createFollowNotification } from '../../api/notification';
