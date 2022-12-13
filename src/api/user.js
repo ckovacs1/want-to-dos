@@ -56,3 +56,4 @@ export const getFollowers = async () => {
   const axiosResponse = await axios.get(getRequestUrl('/api/viewFollowers'));
   return axiosResponse.data;
 };
+

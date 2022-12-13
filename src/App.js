@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import NavBar from './components/nav-bar/nav-bar';
 import ProfilePage from './components/profile-page/user-profile';
 import { Notification } from './components/notification';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import LoginForm, { REMEMBER_ME_KEY } from './components/log-in/login-form';
 import Home from './components/home/home';
 import RegistrationForm from './components/log-in/registration-form';
@@ -68,6 +68,10 @@ function App() {
   useEffect(() => {
     checkRememberMe();
   }, []);
+
+  useEffect(() => {
+    console.log(authState);
+  }, [authState]);
 
   return (
     <Box
@@ -146,6 +150,58 @@ function App() {
         </Route>
       </Routes>
 
+      {authState.isAuthenticated && (
+        <Routes>
+          <Route
+            path="/addwanttodo"
+            element={<Addwanttodo />}
+          ></Route>
+          <Route
+            path="/notification"
+            element={<Notification />}
+          ></Route>
+          <Route
+            path="/profile"
+            element={<ProfilePage />}
+          >
+            {' '}
+          </Route>
+          <Route
+            path="/calendar"
+            element={<CalendarView />}
+          >
+            {' '}
+          </Route>
+          <Route
+            path="/all-friends"
+            element={<AllFriends />}
+          ></Route>
+          {/* here */}
+          <Route
+            path="/list-by-date"
+            element={<ListByDate />}
+          >
+            {' '}
+          </Route>
+          <Route
+            path="/"
+            element={
+              <Home
+                authState={authState}
+                authDispatch={dispatch}
+              />
+            }
+          >
+            {' '}
+          </Route>
+          <Route
+            path="/add"
+            element={<Addwanttodo />}
+          >
+            {' '}
+          </Route>
+        </Routes>
+      )}
       {/* <ProfilePage />
 
         <LoginForm /> */}

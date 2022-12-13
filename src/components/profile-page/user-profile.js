@@ -9,21 +9,27 @@ import {
   followById,
   getUserIdFromEmail,
   checkFollowing,
-  getFollowing,
+  GetFollowing
 } from '../../api/user';
+
+import { createFollowNotification } from '../../api/notification';
+
 
 function ProfilePage() {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+
   const [following, setFollowing] = useState(0);
   const [followers, setFollowers] = useState(0);
+
   const [taskCount, setTaskCount] = useState(0);
   const [completeTasksCount, setCompleteTasksCount] = useState(0);
   const [inProgressTasksCount, setInProgressTasksCount] = useState(0);
+
   const [followEmail, setFollowEmail] = useState('');
+
   const [followId, setFollowId] = useState('');
-  const [f, setF] = useState({});
 
   function initialsProfilePic(name) {
     return {
@@ -112,6 +118,11 @@ function ProfilePage() {
           follow
             .then(message => {
               console.log(message);
+              const notif = createFollowNotification(message.gotNotif._id)
+                .then(console.log(message))
+                .catch(message => {
+                  console.log(message);
+                });
             })
             .catch(message => {
               console.log(message);
@@ -320,6 +331,7 @@ function ProfilePage() {
       </Box>
 
       {/* <Box
+
         sx={{
           width: '60%',
           height: '86vh',
@@ -363,6 +375,7 @@ function ProfilePage() {
               </Button>
             </Link>
           </Box>
+
           <Box
             sx={{
               height: '30vh',

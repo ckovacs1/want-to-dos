@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import { Box, Typography } from '@mui/material';
 import 'react-calendar/dist/Calendar.css';
+import {
+  Route,
+  Routes,
+  useNavigate,
+  useNavigation,
+  redirect,
+} from 'react-router-dom';
 import './cal.css';
 import Addwanttodo from '../add-want-to-do/Addwanttodo';
 import { checkDataIsEmpty } from '../../utils/array';
@@ -19,6 +26,19 @@ function CalendarView() {
   const onChange = date => {
     setDate(date);
   };
+
+  // useEffect(() => {
+  //   window.onbeforeunload = function () {
+  //     console.log('Reload successful');
+  //     // navigate('/');
+  //     // <Redirect to="/" />;
+  //     return true;
+  //   };
+
+  //   return () => {
+  //     window.onbeforeunload = null;
+  //   };
+  // }, []);
 
   const selectedTodos = todos.filter(todo =>
     checkSelectedDate(todo.startDateTime, date.toString()),
