@@ -44,3 +44,8 @@ export const checkFollowing = async() => {
   const axiosResponse = await axios.get(getRequestUrl('/api/viewFollowing'));
   return axiosResponse.data;
 }
+
+export const getFollowing = async () => {
+  const axiosResponse = await axios.get(getRequestUrl('/api/viewFollowing'));
+  return axiosResponse.data;
+}

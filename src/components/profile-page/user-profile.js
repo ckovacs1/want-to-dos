@@ -1,26 +1,23 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Avatar, Button, Box, TextField, Typography } from '@mui/material';
 import MiniProfile from './mini-profile';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import { getUsersTodos } from '../../api/todo';
-import { fetchMe, followById, getUserIdFromEmail, checkFollowing } from '../../api/user';
+import { fetchMe, followById, getUserIdFromEmail, checkFollowing, getFollowing } from '../../api/user';
 
 function ProfilePage() {
   const [ name, setName ] = useState('');
   const [ lastName, setLastName ] = useState('');
   const [ email, setEmail ] = useState('');
-
   const[ following, setFollowing ] = useState(0);
   const[ followers, setFollowers ] = useState(0);
-
   const [ taskCount, setTaskCount ] = useState(0);
   const [ completeTasksCount, setCompleteTasksCount ] = useState(0);
   const [ inProgressTasksCount, setInProgressTasksCount] = useState(0);
-
   const [ followEmail, setFollowEmail ] = useState('');
-
   const [ followId, setFollowId ] = useState('');
+  const [ f, setF ] = useState({});
 
   function initialsProfilePic(name) {
     return {
@@ -34,7 +31,39 @@ function ProfilePage() {
       children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
   }
+
+  function getOnlyInitials(name){
+    return (`${name.split(' ')[0][0]}${name.split(' ')[1][0]}`);
+  }
   
+  function getInitialsFromEmail(email){
+    const user = getUserIdFromEmail(email);
+    let userName = "";
+
+    user.then((message) => {
+      userName = (message.user.name.first + " " + message.user.name.last);
+      const initials = getOnlyInitials(userName);
+      return initials;      
+    }).catch((message) =>{
+      console.log(message);
+    })
+  }
+
+
+  const getFollowingList = async() =>{
+    const data = await getFollowing();
+    let d = [];
+    for(let i = 0; i<data.following.length; i++){
+  
+      d.push(data.following[i].email);
+    }
+    return(d);
+  }
+  console.log(getFollowingList())
+
+
+  getInitialsFromEmail('ck3053@nyu.edu');
+
   const getLoggedInUser = async() => {
     const {data}  = await fetchMe();
     
@@ -48,6 +77,7 @@ function ProfilePage() {
 
   const getLoggedInUsersTodos = async() => {
     const { data } = await getUsersTodos();
+
     setTaskCount(data.length);
     
     let completed = 0;
@@ -304,13 +334,7 @@ function ProfilePage() {
                 alignItems: 'center',
               }}
             >
-              <MiniProfile />
-              <MiniProfile />
 
-              <MiniProfile />
-              <MiniProfile />
-              <MiniProfile />
-              <MiniProfile />
             </Box>
           </Box>
 
@@ -346,13 +370,7 @@ function ProfilePage() {
                 alignItems: 'center',
               }}
             >
-              <MiniProfile />
-              <MiniProfile />
-
-              <MiniProfile />
-              <MiniProfile />
-              <MiniProfile />
-              <MiniProfile />
+       
             </Box>
           </Box>
         </Box>
