@@ -150,58 +150,8 @@ function App() {
         </Route>
       </Routes>
 
-      {authState.isAuthenticated && (
-        <Routes>
-          <Route
-            path="/addwanttodo"
-            element={<Addwanttodo />}
-          ></Route>
-          <Route
-            path="/notification"
-            element={<Notification />}
-          ></Route>
-          <Route
-            path="/profile"
-            element={<ProfilePage />}
-          >
-            {' '}
-          </Route>
-          <Route
-            path="/calendar"
-            element={<CalendarView />}
-          >
-            {' '}
-          </Route>
-          <Route
-            path="/all-friends"
-            element={<AllFriends />}
-          ></Route>
-          {/* here */}
-          <Route
-            path="/list-by-date"
-            element={<ListByDate />}
-          >
-            {' '}
-          </Route>
-          <Route
-            path="/"
-            element={
-              <Home
-                authState={authState}
-                authDispatch={dispatch}
-              />
-            }
-          >
-            {' '}
-          </Route>
-          <Route
-            path="/add"
-            element={<Addwanttodo />}
-          >
-            {' '}
-          </Route>
-        </Routes>
-      )}
+      
+   
       {/* <ProfilePage />
 
         <LoginForm /> */}
