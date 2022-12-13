@@ -14,6 +14,7 @@ import { CalendarView } from './components/calendar-view';
 import { Toaster } from 'react-hot-toast';
 import setAuthToken from './utils/setAuthToken';
 import { fetchMe } from './api/user';
+import { AllFollowers } from './components/all-followers';
 
 const authInitialState = {
   isAuthenticated: false,
@@ -83,76 +84,71 @@ function App() {
       <Toaster position="top-center" />
       <NavBar authState={authState} />
 
-      {!authState.isAuthenticated && (
-        <Routes>
-          <Route
-            path="/calendar"
-            element={
-              <Navigate
-                from="/calendar"
-                to="/"
-              />
-            }
-          />
-          <Route
-            path="/list-by-date"
-            element={
-              <Navigate
-                from="/list-by-date"
-                to="/"
-              />
-            }
-          />
-          <Route
-            path="/notifications"
-            element={
-              <Navigate
-                from="/notifications"
-                to="/"
-              />
-            }
-          />
-          <Route
-            path="/all-friends"
-            element={
-              <Navigate
-                from="/all-friends"
-                to="/"
-              />
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <Navigate
-                from="/profile"
-                to="/"
-              />
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <Home
-                authState={authState}
-                authDispatch={dispatch}
-              />
-            }
-          ></Route>
-          <Route
-            path="/login"
-            element={<LoginForm authDispatch={dispatch} />}
-          >
-            {' '}
-          </Route>
-          <Route
-            path="/register"
-            element={<RegistrationForm />}
-          >
-            {' '}
-          </Route>
-        </Routes>
-      )}
+      <Routes>
+        <Route
+          path="/addwanttodo"
+          element={<Addwanttodo />}
+        ></Route>
+        <Route
+          path="/notification"
+          element={<Notification />}
+        ></Route>
+        <Route
+          path="/profile"
+          element={<ProfilePage />}
+        >
+          {' '}
+        </Route>
+        <Route
+          path="/calendar"
+          element={<CalendarView />}
+        >
+          {' '}
+        </Route>
+        <Route
+          path="/all-friends"
+          element={<AllFriends />}
+        ></Route>
+        <Route
+          path="/all-followers"
+          element={<AllFollowers />}
+        ></Route>
+        <Route
+          path="/login"
+          element={<LoginForm authDispatch={dispatch} />}
+        >
+          {' '}
+        </Route>
+        <Route
+          path="/register"
+          element={<RegistrationForm />}
+        >
+          {' '}
+        </Route>
+        <Route
+          path="/list-by-date"
+          element={<ListByDate />}
+        >
+          {' '}
+        </Route>
+        <Route
+          path="/"
+          element={
+            <Home
+              authState={authState}
+              authDispatch={dispatch}
+            />
+          }
+        >
+          {' '}
+        </Route>
+        <Route
+          path="/add"
+          element={<Addwanttodo />}
+        >
+          {' '}
+        </Route>
+      </Routes>
 
       {authState.isAuthenticated && (
         <Routes>

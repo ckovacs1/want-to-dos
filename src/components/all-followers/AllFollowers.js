@@ -1,8 +1,8 @@
 import { Button, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import './AllFriends.css';
-import { fetchFollowers } from './../../api/follow.js';
-import { getFollowing } from './../../api/user.js';
+import './AllFollowers.css';
+import { fetchFollowing } from './../../api/follow.js';
+import { getFollowers } from './../../api/user.js';
 import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 
@@ -19,26 +19,26 @@ function initialsProfilePic(name) {
   };
 }
 
-function AllFriends() {
-  const [friends, setFriends] = useState([]);
+function AllFollowers() {
+  const [followers, setFollowers] = useState([]);
   useEffect(() => {
-    getFollowingList();
+    getFollowerList();
   }, []);
 
-  const getFollowingList = async () => {
-    const data = await getFollowing();
-    console.log(data.following[0].name);
+  const getFollowerList = async () => {
+    const data = await getFollowers();
+    console.log(data.followers[0].name);
     let d = [];
-    data.following.map(item => d.push(item.name));
+    data.followers.map(item => d.push(item.name));
     // for (let i = 0; i < data.following.length; i++) {
     //   d.push(data.following[i].email);
     // }
     console.log(d);
-    setFriends(d);
+    setFollowers(d);
   };
 
   return (
-    <div className="allfriends__container">
+    <div className="allfollowers__container">
       <Link to="/profile">
         <Button
           variant="contained"
@@ -47,21 +47,23 @@ function AllFriends() {
           Back to Profile
         </Button>
       </Link>
-      <div className="allfriends__wrapper">
+      <div className="allfollowers__wrapper">
         <Typography
           variant="h5"
           className="primary"
         >
-          Following
+          Followers
         </Typography>
-        <div className="allfriends__content-wrapper">
-          {friends.map(item => (
+        <div className="allfollowers__content-wrapper">
+          {followers.map(item => (
             <div
-              className="allfriends__content-item"
+              className="allfollowers__content-item"
               key={item.first}
             >
               <Avatar {...initialsProfilePic(item.first + ' ' + item.last)} />
-              <div className="allfriends__content-item-name">{item.first}</div>
+              <div className="allfollowers__content-item-name">
+                {item.first}
+              </div>
             </div>
           ))}
         </div>
@@ -70,4 +72,4 @@ function AllFriends() {
   );
 }
 
-export default AllFriends;
+export default AllFollowers;
