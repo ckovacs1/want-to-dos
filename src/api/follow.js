@@ -12,3 +12,11 @@ export const fetchFollowing = async () => {
 
   return axiosResponse.data;
 };
+
+export const createFollowNotification = async id => {
+  const axiosResponse = await axios.post(
+    getRequestUrl(`/api/newFollowerNotif/${id}`),
+  );
+
+  return axiosResponse.data;
+};
