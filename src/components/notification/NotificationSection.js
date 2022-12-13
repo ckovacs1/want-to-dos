@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getUserFullname } from '../../utils/profile';
 import NotificationItem from './NotificationItem';
 import './NotificationSection.css';
 
 //refer to this part for error
 function NotificationSection({ followData, inviteData }) {
+  useEffect(() => {
+    console.log(followData);
+  }, []);
+
   return (
     <div className="notification__date-section">
       <ul className="notification__date-list">
