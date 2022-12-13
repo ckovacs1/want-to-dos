@@ -4,20 +4,26 @@ import MiniProfile from './mini-profile';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import { getUsersTodos } from '../../api/todo';
-import { fetchMe, followById, getUserIdFromEmail, checkFollowing, getFollowing } from '../../api/user';
+import {
+  fetchMe,
+  followById,
+  getUserIdFromEmail,
+  checkFollowing,
+  getFollowing,
+} from '../../api/user';
 
 function ProfilePage() {
-  const [ name, setName ] = useState('');
-  const [ lastName, setLastName ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const[ following, setFollowing ] = useState(0);
-  const[ followers, setFollowers ] = useState(0);
-  const [ taskCount, setTaskCount ] = useState(0);
-  const [ completeTasksCount, setCompleteTasksCount ] = useState(0);
-  const [ inProgressTasksCount, setInProgressTasksCount] = useState(0);
-  const [ followEmail, setFollowEmail ] = useState('');
-  const [ followId, setFollowId ] = useState('');
-  const [ f, setF ] = useState({});
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [following, setFollowing] = useState(0);
+  const [followers, setFollowers] = useState(0);
+  const [taskCount, setTaskCount] = useState(0);
+  const [completeTasksCount, setCompleteTasksCount] = useState(0);
+  const [inProgressTasksCount, setInProgressTasksCount] = useState(0);
+  const [followEmail, setFollowEmail] = useState('');
+  const [followId, setFollowId] = useState('');
+  const [f, setF] = useState({});
 
   function initialsProfilePic(name) {
     return {
@@ -26,97 +32,96 @@ function ProfilePage() {
         width: '100px',
         height: '100px',
         fontSize: '40pt',
-        mt: '20px'
+        mt: '20px',
       },
       children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
   }
 
-  function getOnlyInitials(name){
-    return (`${name.split(' ')[0][0]}${name.split(' ')[1][0]}`);
+  function getOnlyInitials(name) {
+    return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`;
   }
-  
-  function getInitialsFromEmail(email){
+
+  function getInitialsFromEmail(email) {
     const user = getUserIdFromEmail(email);
-    let userName = "";
+    let userName = '';
 
-    user.then((message) => {
-      userName = (message.user.name.first + " " + message.user.name.last);
-      const initials = getOnlyInitials(userName);
-      return initials;      
-    }).catch((message) =>{
-      console.log(message);
-    })
+    user
+      .then(message => {
+        userName = message.user.name.first + ' ' + message.user.name.last;
+        const initials = getOnlyInitials(userName);
+        return initials;
+      })
+      .catch(message => {
+        console.log(message);
+      });
   }
 
-
-  const getFollowingList = async() =>{
+  const getFollowingList = async () => {
     const data = await getFollowing();
     let d = [];
-    for(let i = 0; i<data.following.length; i++){
-  
+    for (let i = 0; i < data.following.length; i++) {
       d.push(data.following[i].email);
     }
-    return(d);
-  }
-  console.log(getFollowingList())
-
+    return d;
+  };
+  console.log(getFollowingList());
 
   getInitialsFromEmail('ck3053@nyu.edu');
 
-  const getLoggedInUser = async() => {
-    const {data}  = await fetchMe();
-    
+  const getLoggedInUser = async () => {
+    const { data } = await fetchMe();
+
     setName(data.name.first);
     setLastName(data.name.last);
     setEmail(data.email);
     setFollowing(data.following.length);
     setFollowers(data.followers.length);
     //console.log(data)
-  }
+  };
 
-  const getLoggedInUsersTodos = async() => {
+  const getLoggedInUsersTodos = async () => {
     const { data } = await getUsersTodos();
 
     setTaskCount(data.length);
-    
+
     let completed = 0;
     let inProgress = 0;
-    data.forEach((task) =>{
-      if(task.complete){
+    data.forEach(task => {
+      if (task.complete) {
         completed++;
       } else {
         inProgress++;
       }
-    })
+    });
     setCompleteTasksCount(completed);
     setInProgressTasksCount(inProgress);
-  }
+  };
 
   getLoggedInUser();
   getLoggedInUsersTodos();
 
-  const handleEmailSubmit = (e) => {
+  const handleEmailSubmit = e => {
     e.preventDefault();
 
-    if (followEmail){
-      
+    if (followEmail) {
       const data = getUserIdFromEmail(followEmail);
-      data.then((message) => {
-
-        const follow = followById(message.user._id);
-        follow.then((message)=> {
-          console.log(message)
-        }).catch((message) => {
-          console.log(message)
+      data
+        .then(message => {
+          const follow = followById(message.user._id);
+          follow
+            .then(message => {
+              console.log(message);
+            })
+            .catch(message => {
+              console.log(message);
+            });
         })
-
-      }).catch((message) => {
-        console.log("error from getUserIdFromEmail");
-      })
-
+        .catch(message => {
+          console.log('error from getUserIdFromEmail');
+        });
     }
-  }
+  };
 
   return (
     <Box
@@ -147,14 +152,14 @@ function ProfilePage() {
             flexDirection: 'row',
             justifyContent: 'center',
             backgroundColor: '#D3D4D7',
-            overflow: 'auto'
+            overflow: 'auto',
           }}
         >
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              rowGap: '10px'
+              rowGap: '10px',
             }}
           >
             <Box
@@ -167,7 +172,7 @@ function ProfilePage() {
                 height: 'auto',
               }}
             >
-              <Avatar {...initialsProfilePic(name + " " + lastName)} />
+              <Avatar {...initialsProfilePic(name + ' ' + lastName)} />
             </Box>
 
             <Box>
@@ -184,7 +189,7 @@ function ProfilePage() {
                     fontSize: '14pt',
                   }}
                 >
-                  {name + " " + lastName}
+                  {name + ' ' + lastName}
                 </Typography>
 
                 <Typography
@@ -207,25 +212,29 @@ function ProfilePage() {
                 mt: '5%',
               }}
             >
-              <Button variant="contained">Edit Profile</Button>
+              {/* <Button variant="contained">Edit Profile</Button> */}
             </Box>
 
             <Box
-            sx={{
-              display: 'flex',
-              marginTop: '10px',
-              justifyContent: 'center'
-            }}>
-              <Typography sx={{fontSize: '18pt'}}> Analytics</Typography>
+              sx={{
+                display: 'flex',
+                marginTop: '10px',
+                justifyContent: 'center',
+              }}
+            >
+              <Typography sx={{ fontSize: '18pt' }}> Analytics</Typography>
             </Box>
 
             <Typography> Total Want to Dos: {taskCount}</Typography>
-            <Typography> In Progress Want to Dos: {inProgressTasksCount}</Typography>
-            <Typography> Completed Want to Dos: {completeTasksCount}</Typography>
-
-
+            <Typography>
+              {' '}
+              In Progress Want to Dos: {inProgressTasksCount}
+            </Typography>
+            <Typography>
+              {' '}
+              Completed Want to Dos: {completeTasksCount}
+            </Typography>
           </Box>
-
         </Box>
 
         <Box
@@ -248,22 +257,23 @@ function ProfilePage() {
               flexDirection: 'row',
             }}
           >
-            <form noValidate autoComplete="off" onSubmit={handleEmailSubmit}>
+            <form
+              noValidate
+              autoComplete="off"
+              onSubmit={handleEmailSubmit}
+            >
               <TextField
                 variant="standard"
                 label="Friend's Email"
-                onChange={(e) => setFollowEmail(e.target.value)}
+                onChange={e => setFollowEmail(e.target.value)}
               />
-              <Button
-                type="submit"
-              >
+              <Button type="submit">
                 <AddIcon sx={{ mt: '10px' }} />
               </Button>
             </form>
           </Box>
         </Box>
       </Box>
-
 
       <Box
         sx={{
@@ -287,7 +297,6 @@ function ProfilePage() {
             justifyContent: 'center',
           }}
         >
- 
           <Box
             sx={{
               display: 'flex',
@@ -309,9 +318,8 @@ function ProfilePage() {
                 View all
               </Button>
             </Link>
-
           </Box>
-          
+
           <Box
             sx={{
               height: '30vh',
@@ -333,9 +341,7 @@ function ProfilePage() {
                 columnGap: '30px',
                 alignItems: 'center',
               }}
-            >
-
-            </Box>
+            ></Box>
           </Box>
 
           <Box
@@ -343,7 +349,7 @@ function ProfilePage() {
               my: 1,
               textAlign: 'center',
               fontSize: '22px',
-              mt: '30px'
+              mt: '30px',
             }}
           >
             Followers ({followers})
@@ -369,9 +375,7 @@ function ProfilePage() {
                 columnGap: '30px',
                 alignItems: 'center',
               }}
-            >
-       
-            </Box>
+            ></Box>
           </Box>
         </Box>
       </Box>
