@@ -1,0 +1,39 @@
+.allfollowers__container {
+  width: 70%;
+  max-width: 1000px;
+  margin: 60px auto;
+}
+
+.allfollowers__wrapper {
+  width: 100%;
+}
+
+.allfollowers__content-wrapper {
+  width: 100%;
+  margin: 28px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: #ededed;
+  border-radius: 16px;
+  overflow: scroll;
+}
+
+.allfollowers__content-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 18%;
+  margin: 8px 0;
+}
+
+.allfollowers__content-item-profile {
+  width: 100%;
+  padding: 4px;
+  border-radius: 50%;
+}
+
+.allfollowers__content-item-name {
+}
