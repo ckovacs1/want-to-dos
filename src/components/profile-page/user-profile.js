@@ -194,20 +194,13 @@ function ProfilePage() {
                 >
                   {email}
                 </Typography>
-              </Box>
-            </Box>
 
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                alignContent: 'center',
-                mt: '5%',
-              }}
-            >
-              <Button variant="contained">Edit Profile</Button>
+                <Box sx={{display: 'flex', flexDirection: 'row', columnGap: '15px'}}>
+                  <Typography> Following: {following}</Typography>
+                  <Typography> Followers: {followers}</Typography>
+                </Box>
+
+              </Box>
             </Box>
 
             <Box
@@ -265,7 +258,7 @@ function ProfilePage() {
       </Box>
 
 
-      <Box
+      {/* <Box
         sx={{
           width: '60%',
           height: '86vh',
@@ -286,33 +279,11 @@ function ProfilePage() {
             rowGap: '10px',
             justifyContent: 'center',
           }}
-        >
+        > */}
  
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              alignContent: 'center',
-              columnGap: '15px',
-              textAlign: 'center',
-              fontSize: '22px',
-            }}
-          >
-            Following ({following})
-            <Link to="/all-friends">
-              <Button
-                variant="contained"
-                size="small"
-              >
-                View all
-              </Button>
-            </Link>
-
-          </Box>
+ 
           
-          <Box
+          {/* <Box
             sx={{
               height: '30vh',
               borderRadius: '25px',
@@ -336,9 +307,9 @@ function ProfilePage() {
             >
 
             </Box>
-          </Box>
+          </Box> */}
 
-          <Box
+          {/* <Box
             sx={{
               my: 1,
               textAlign: 'center',
@@ -347,8 +318,8 @@ function ProfilePage() {
             }}
           >
             Followers ({followers})
-          </Box>
-          <Box
+          </Box> */}
+          {/* <Box
             sx={{
               height: '30vh',
               borderRadius: '25px',
@@ -372,9 +343,9 @@ function ProfilePage() {
             >
        
             </Box>
-          </Box>
-        </Box>
-      </Box>
+          </Box> */}
+        {/* </Box> */}
+      {/* </Box> */}
     </Box>
   );
 }
