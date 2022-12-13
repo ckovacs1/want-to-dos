@@ -1,15 +1,14 @@
-.allfriends__container {
+.allfollowers__container {
   width: 70%;
   max-width: 1000px;
   margin: 60px auto;
 }
 
-.allfriends__wrapper {
+.allfollowers__wrapper {
   width: 100%;
-  margin-top: 4px;
 }
 
-.allfriends__content-wrapper {
+.allfollowers__content-wrapper {
   width: 100%;
   margin: 28px 0;
   display: flex;
@@ -21,7 +20,7 @@
   overflow: scroll;
 }
 
-.allfriends__content-item {
+.allfollowers__content-item {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,11 +29,11 @@
   margin: 8px 0;
 }
 
-.allfriends__content-item-profile {
+.allfollowers__content-item-profile {
   width: 100%;
   padding: 4px;
   border-radius: 50%;
 }
 
-.allfriends__content-item-name {
+.allfollowers__content-item-name {
 }

@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import NavBar from './components/nav-bar/nav-bar';
 import ProfilePage from './components/profile-page/user-profile';
 import { Notification } from './components/notification';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import LoginForm, { REMEMBER_ME_KEY } from './components/log-in/login-form';
 import Home from './components/home/home';
 import RegistrationForm from './components/log-in/registration-form';
@@ -14,6 +14,7 @@ import { CalendarView } from './components/calendar-view';
 import { Toaster } from 'react-hot-toast';
 import setAuthToken from './utils/setAuthToken';
 import { fetchMe } from './api/user';
+import { AllFollowers } from './components/all-followers';
 
 const authInitialState = {
   isAuthenticated: false,
@@ -68,6 +69,10 @@ function App() {
     checkRememberMe();
   }, []);
 
+  useEffect(() => {
+    console.log(authState);
+  }, [authState]);
+
   return (
     <Box
       sx={{
@@ -103,6 +108,10 @@ function App() {
         <Route
           path="/all-friends"
           element={<AllFriends />}
+        ></Route>
+        <Route
+          path="/all-followers"
+          element={<AllFollowers />}
         ></Route>
         <Route
           path="/login"
@@ -141,6 +150,7 @@ function App() {
         </Route>
       </Routes>
 
+     
       {/* <ProfilePage />
 
         <LoginForm /> */}
