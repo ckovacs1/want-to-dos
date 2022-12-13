@@ -27,18 +27,18 @@ function CalendarView() {
     setDate(date);
   };
 
-  useEffect(() => {
-    window.onbeforeunload = function () {
-      console.log('Reload successful');
-      // navigate('/');
-      // <Redirect to="/" />;
-      return true;
-    };
+  // useEffect(() => {
+  //   window.onbeforeunload = function () {
+  //     console.log('Reload successful');
+  //     // navigate('/');
+  //     // <Redirect to="/" />;
+  //     return true;
+  //   };
 
-    return () => {
-      window.onbeforeunload = null;
-    };
-  }, []);
+  //   return () => {
+  //     window.onbeforeunload = null;
+  //   };
+  // }, []);
 
   const selectedTodos = todos.filter(todo =>
     checkSelectedDate(todo.startDateTime, date.toString()),
