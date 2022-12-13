@@ -31,21 +31,28 @@ export const fetchAllUsers = async () => {
 };
 
 export const getUserIdFromEmail = async email => {
-  const axiosResponse = await axios.get(getRequestUrl(`/api/findUserByEmail/${email}`));
+  const axiosResponse = await axios.get(
+    getRequestUrl(`/api/findUserByEmail/${email}`),
+  );
   return axiosResponse.data;
-}
+};
 
 export const followById = async id => {
   const axiosResponse = await axios.post(getRequestUrl(`/api/follow/${id}`));
   return axiosResponse.data;
-}
+};
 
-export const checkFollowing = async() => {
+export const checkFollowing = async () => {
   const axiosResponse = await axios.get(getRequestUrl('/api/viewFollowing'));
   return axiosResponse.data;
-}
+};
 
 export const getFollowing = async () => {
   const axiosResponse = await axios.get(getRequestUrl('/api/viewFollowing'));
   return axiosResponse.data;
-}
+};
+
+export const getFollowers = async () => {
+  const axiosResponse = await axios.get(getRequestUrl('/api/viewFollowers'));
+  return axiosResponse.data;
+};

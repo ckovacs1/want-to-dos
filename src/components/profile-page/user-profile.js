@@ -145,7 +145,7 @@ function ProfilePage() {
       >
         <Box
           sx={{
-            height: '50vh',
+            height: '55vh',
             borderRadius: '25px',
             width: '65%',
             display: 'flex',
@@ -191,7 +191,6 @@ function ProfilePage() {
                 >
                   {name + ' ' + lastName}
                 </Typography>
-
                 <Typography
                   sx={{
                     fontSize: '14pt',
@@ -199,6 +198,51 @@ function ProfilePage() {
                 >
                   {email}
                 </Typography>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    rowGap: '10px',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      columnGap: '15px',
+                    }}
+                  >
+                    <Typography> Followers({followers}) </Typography>
+                    <Link to="/all-followers">
+                      <Button
+                        variant="contained"
+                        size="small"
+                      >
+                        {' '}
+                        View All
+                      </Button>
+                    </Link>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      columnGap: '15px',
+                    }}
+                  >
+                    <Typography> Following({following}) </Typography>
+                    <Link to="/all-friends">
+                      <Button
+                        variant="contained"
+                        size="small"
+                      >
+                        {' '}
+                        View All
+                      </Button>
+                    </Link>
+                  </Box>
+                </Box>
               </Box>
             </Box>
 
@@ -250,7 +294,7 @@ function ProfilePage() {
             backgroundColor: '#D3D4D7',
           }}
         >
-          <Typography> Find a Friend</Typography>
+          <Typography> Find a Friend </Typography>
           <Box
             sx={{
               display: 'flex',
@@ -275,7 +319,7 @@ function ProfilePage() {
         </Box>
       </Box>
 
-      <Box
+      {/* <Box
         sx={{
           width: '60%',
           height: '86vh',
@@ -319,7 +363,6 @@ function ProfilePage() {
               </Button>
             </Link>
           </Box>
-
           <Box
             sx={{
               height: '30vh',
@@ -353,6 +396,14 @@ function ProfilePage() {
             }}
           >
             Followers ({followers})
+            <Link to="/all-followers">
+              <Button
+                variant="contained"
+                size="small"
+              >
+                View all
+              </Button>
+            </Link>
           </Box>
           <Box
             sx={{
@@ -378,7 +429,7 @@ function ProfilePage() {
             ></Box>
           </Box>
         </Box>
-      </Box>
+      </Box> */}
     </Box>
   );
 }

@@ -14,6 +14,7 @@ import { CalendarView } from './components/calendar-view';
 import { Toaster } from 'react-hot-toast';
 import setAuthToken from './utils/setAuthToken';
 import { fetchMe } from './api/user';
+import { AllFollowers } from './components/all-followers';
 
 const authInitialState = {
   isAuthenticated: false,
@@ -103,6 +104,10 @@ function App() {
         <Route
           path="/all-friends"
           element={<AllFriends />}
+        ></Route>
+        <Route
+          path="/all-followers"
+          element={<AllFollowers />}
         ></Route>
         <Route
           path="/login"
