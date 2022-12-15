@@ -10,7 +10,7 @@ NOTE: It takes a while for render to start up so if you can't login instantly do
 
 ## [Features to test]
 1. Sign up, Login
-  - ** Make sure when logging in, you click Remember Me. This will prevent you from getting logged out when you refresh the page or exit and reopen the window. **
+  - **Make sure when logging in, you click Remember Me. This will prevent you from getting logged out when you refresh the page or exit and reopen the window.**
   - If you do not click Remember Me, it'll log you out and bring you back to the main page where you have to re-login.
 
 2-1. Calendar View 
