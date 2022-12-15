@@ -9,6 +9,11 @@ WantToDo is an app for habits you want to form, or for the things that you’d l
 NOTE: It takes a while for render to start up so if you can't login instantly don't worry! Wait a 1-2 minutes and it will log you in :)
 
 ## [Features to test]
+
+**Since our service has interactive features, and past notifications that you can't test with a brand new account or one account, you can use this test account below as well as making a new account:** 
+   - Email: el2765@nyu.edu
+   - Password: password123@
+  
 1. Sign up, Login
   - **Make sure when logging in, you click Remember Me. This will prevent you from getting logged out when you refresh the page or exit and reopen the window.**
   - If you do not click Remember Me, it'll log you out and bring you back to the main page where you have to re-login.
@@ -69,6 +74,3 @@ NOTE: It takes a while for render to start up so if you can't login instantly do
 7-2. View Followers and Following 
   - Below the profile info, there are two buttons that would direct you to another page showing all your following and followers. 
 
-**Since our service has interactive features, and past notifications that you can't test with a brand new account or one account, use this test account below:** 
-   - Email: el2765@nyu.edu
-   - Password: password123@
