@@ -10,7 +10,7 @@ NOTE: It takes a while for render to start up so if you can't login instantly do
 
 ## [Features to test]
 1. Sign up, Login
-  - <b> Make sure when logging in, you click Remember Me. This will prevent you from getting logged out when you refresh the page or exit and reopen the window. <b /> 
+  - **Make sure when logging in, you click Remember Me. This will prevent you from getting logged out when you refresh the page or exit and reopen the window.**
   - If you do not click Remember Me, it'll log you out and bring you back to the main page where you have to re-login.
 
 2-1. Calendar View 
@@ -28,9 +28,12 @@ NOTE: It takes a while for render to start up so if you can't login instantly do
   - On the add page, there are two sections related to repeating a wanttodo. 
   - Repetition is how many time you'll repeat a specific wanttodo. 
   - Repeat Type is choosing whether you want to repeat a specific wanttodo daily, weekly, or monthly. 
-    - Daily: It repeats how many days you choose. (EX) Start date: Dec 14th, Repetition: 2 / Repeay Type: Daily, then there would be two items created for Dec 14th and Dec 15th.) 
-    - Weekly: It repeats weekly starting from the startdate. (EX) Start date: Dec 14th, Repetition: 2 / Repeay Type: Weekly, then there would be two items created for Dec 14th and Dec 21st.)
-    - Monthly: It repeats monthly starting from the startdate. (EX) Start date: Dec 14th, Repetition: 2 / Repeay Type: Monthly, then there would be two items created for Dec 14th and Jan 14th.)
+    - Daily: It repeats how many days you choose. 
+      - (EX) Start date: Dec 14th, Repetition: 2 / Repeay Type: Daily, then there would be two items created for Dec 14th and Dec 15th.) 
+    - Weekly: It repeats weekly starting from the startdate. 
+      - (EX) Start date: Dec 14th, Repetition: 2 / Repeay Type: Weekly, then there would be two items created for Dec 14th and Dec 21st.)
+    - Monthly: It repeats monthly starting from the startdate. 
+      - (EX) Start date: Dec 14th, Repetition: 2 / Repeay Type: Monthly, then there would be two items created for Dec 14th and Jan 14th.)
   - Even if you mark a wanttodo for one day complete, it won't affect other days for that specific wanttodo. 
     
 3-2. Add wanttodos - Invite Friends 
@@ -46,20 +49,16 @@ NOTE: It takes a while for render to start up so if you can't login instantly do
   - Users can mark a completed wanttodo by simply clicking the checkbox. 
   - Once the user clicks it, it'll also sort all wanttodos on the list, showing wanttodos that are still in progress first. 
 
-<b> Caution: You need to wait for several seconds to click complete and delete. Unless it might crash your server. Just wait for a bit to click complete or delete after clicking one another. <b />
+**Caution: You need to wait for several seconds to click complete and delete. Unless it might crash your server. Just wait for a bit to click complete or delete after clicking one another.**
 
 6. Notifications
   - There are two types of notifications 
-    1) Invite notifications
-      - Once your friend invites you to a wanttodo, a notification will be sent to the invited user. 
-    2) Follow notifications 
-      - Once somebody follows you, a notification will be sent to the followed user. 
+    1) Invite Notifications
+        - Once your friend invites you to a wanttodo, a notification will be sent to the invited user. 
+    2) Follow Notifications 
+        - Once somebody follows you, a notification will be sent to the followed user. 
   - You can also see notifications from today and past. 
     - This is for user's convenience to check the most recent notifications. 
-       <b> If you want to test past notifications, use the following test account: 
-         - Email: el2765@nyu.edu
-         - Password: password123@ 
-       <b />
     
 7. Profile 
   - You can see your profile with name, email, and profile bubbles with your initials. 
@@ -70,5 +69,6 @@ NOTE: It takes a while for render to start up so if you can't login instantly do
 7-2. View Followers and Following 
   - Below the profile info, there are two buttons that would direct you to another page showing all your following and followers. 
 
-
-
+**Since our service has interactive features, and past notifications that you can't test with a brand new account or one account, use this test account below:** 
+   - Email: el2765@nyu.edu
+   - Password: password123@
