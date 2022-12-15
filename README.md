@@ -54,9 +54,9 @@ NOTE: It takes a while for render to start up so if you can't login instantly do
 6. Notifications
   - There are two types of notifications 
     1) Invite Notifications
-      - Once your friend invites you to a wanttodo, a notification will be sent to the invited user. 
+        - Once your friend invites you to a wanttodo, a notification will be sent to the invited user. 
     2) Follow Notifications 
-      - Once somebody follows you, a notification will be sent to the followed user. 
+        - Once somebody follows you, a notification will be sent to the followed user. 
   - You can also see notifications from today and past. 
     - This is for user's convenience to check the most recent notifications. 
     
