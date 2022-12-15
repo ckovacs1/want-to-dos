@@ -46,7 +46,7 @@ NOTE: It takes a while for render to start up so if you can't login instantly do
   - Users can mark a completed wanttodo by simply clicking the checkbox. 
   - Once the user clicks it, it'll also sort all wanttodos on the list, showing wanttodos that are still in progress first. 
 
-** Caution: You need to wait for several seconds to click complete and delete. Unless it might crash your server. Just wait for a bit to click complete or delete after clicking one another. **
+**Caution: You need to wait for several seconds to click complete and delete. Unless it might crash your server. Just wait for a bit to click complete or delete after clicking one another.**
 
 6. Notifications
   - There are two types of notifications 
@@ -56,10 +56,9 @@ NOTE: It takes a while for render to start up so if you can't login instantly do
       - Once somebody follows you, a notification will be sent to the followed user. 
   - You can also see notifications from today and past. 
     - This is for user's convenience to check the most recent notifications. 
-       ** If you want to test past notifications, use the following test account: 
+       **If you want to test past notifications, use the following test account:** 
          - Email: el2765@nyu.edu
-         - Password: password123@ 
-       **
+         - Password: password123@
     
 7. Profile 
   - You can see your profile with name, email, and profile bubbles with your initials. 
