@@ -45,11 +45,9 @@ const useTodos = () => {
   const removeTodo = async id => {
     try {
       const response = await deleteTodo(id);
+    } catch (e) {}
 
-      fetchTodos();
-    } catch (e) {
-      toast.error('Error');
-    }
+    fetchTodos();
   };
 
   const onClickRemoveButton = id => {
