@@ -9,11 +9,10 @@ import {
   followById,
   getUserIdFromEmail,
   checkFollowing,
-  getFollowing
+  getFollowing,
 } from '../../api/user';
 
 import { createFollowNotification } from '../../api/notification';
-
 
 function ProfilePage() {
   const [name, setName] = useState('');
@@ -114,15 +113,15 @@ function ProfilePage() {
       const data = getUserIdFromEmail(followEmail);
       data
         .then(message => {
-          const follow = followById(message.user._id);
+          const followedUserId = message.user._id;
+          const follow = followById(followedUserId);
           follow
             .then(message => {
               console.log(message);
-              const notif = createFollowNotification(message.gotNotif._id)
-                .then(console.log(message))
-                .catch(message => {
-                  console.log(message);
-                });
+              const notif = createFollowNotification(followedUserId);
+              notif.then(console.log(message)).catch(message => {
+                console.log(message);
+              });
             })
             .catch(message => {
               console.log(message);
