@@ -84,74 +84,143 @@ function App() {
       <Toaster position="top-center" />
       <NavBar authState={authState} />
 
-      <Routes>
-        <Route
-          path="/addwanttodo"
-          element={<Addwanttodo />}
-        ></Route>
-        <Route
-          path="/notification"
-          element={<Notification />}
-        ></Route>
-        <Route
-          path="/profile"
-          element={<ProfilePage />}
-        >
-          {' '}
-        </Route>
-        <Route
-          path="/calendar"
-          element={<CalendarView />}
-        >
-          {' '}
-        </Route>
-        <Route
-          path="/all-friends"
-          element={<AllFriends />}
-        ></Route>
-        <Route
-          path="/all-followers"
-          element={<AllFollowers />}
-        ></Route>
-        <Route
-          path="/login"
-          element={<LoginForm authDispatch={dispatch} />}
-        >
-          {' '}
-        </Route>
-        <Route
-          path="/register"
-          element={<RegistrationForm />}
-        >
-          {' '}
-        </Route>
-        <Route
-          path="/list-by-date"
-          element={<ListByDate />}
-        >
-          {' '}
-        </Route>
-        <Route
-          path="/"
-          element={
-            <Home
-              authState={authState}
-              authDispatch={dispatch}
-            />
-          }
-        >
-          {' '}
-        </Route>
-        <Route
-          path="/add"
-          element={<Addwanttodo />}
-        >
-          {' '}
-        </Route>
-      </Routes>
+      {!authState.isAuthenticated && (
+        <Routes>
+          <Route
+            path="/calendar"
+            element={
+              <Navigate
+                from="/calendar"
+                to="/"
+              />
+            }
+          />
+          <Route
+            path="/list-by-date"
+            element={
+              <Navigate
+                from="/list-by-date"
+                to="/"
+              />
+            }
+          />
+          <Route
+            path="/notification"
+            element={
+              <Navigate
+                from="/notification"
+                to="/"
+              />
+            }
+          />
+          <Route
+            path="/all-friends"
+            element={
+              <Navigate
+                from="/all-friends"
+                to="/"
+              />
+            }
+          />
+          <Route
+            path="/all-fowllowers"
+            element={
+              <Navigate
+                from="/all-followers"
+                to="/"
+              />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Navigate
+                from="/profile"
+                to="/"
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <Home
+                authState={authState}
+                authDispatch={dispatch}
+              />
+            }
+          ></Route>
+          <Route
+            path="/login"
+            element={<LoginForm authDispatch={dispatch} />}
+          >
+            {' '}
+          </Route>
+          <Route
+            path="/register"
+            element={<RegistrationForm />}
+          >
+            {' '}
+          </Route>
+        </Routes>
+      )}
 
-      
-   
+      {authState.isAuthenticated && (
+        <Routes>
+          <Route
+            path="/addwanttodo"
+            element={<Addwanttodo />}
+          ></Route>
+          <Route
+            path="/notification"
+            element={<Notification />}
+          ></Route>
+          <Route
+            path="/profile"
+            element={<ProfilePage />}
+          >
+            {' '}
+          </Route>
+          <Route
+            path="/calendar"
+            element={<CalendarView />}
+          >
+            {' '}
+          </Route>
+          <Route
+            path="/all-friends"
+            element={<AllFriends />}
+          ></Route>
+          {/* here */}
+          <Route
+            path="/all-followers"
+            element={<AllFollowers />}
+          ></Route>
+          {/* here */}
+          <Route
+            path="/list-by-date"
+            element={<ListByDate />}
+          >
+            {' '}
+          </Route>
+          <Route
+            path="/"
+            element={
+              <Home
+                authState={authState}
+                authDispatch={dispatch}
+              />
+            }
+          >
+            {' '}
+          </Route>
+          <Route
+            path="/add"
+            element={<Addwanttodo />}
+          >
+            {' '}
+          </Route>
+        </Routes>
+      )}
       {/* <ProfilePage />
 
         <LoginForm /> */}
