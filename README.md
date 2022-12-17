@@ -15,6 +15,8 @@ NOTE: It takes a while for render to start up so if you can't login instantly do
 - Email: tiffany3123@gmail.com
 - Password: password123@
 
+**We have followed one user and invited the test accounnt to a wanttodo using another account in order to show the past notifications.**
+
 1. Sign up, Login
 
 - **Make sure when logging in, you click Remember Me. This will prevent you from getting logged out when you exit and reopen the window.**
